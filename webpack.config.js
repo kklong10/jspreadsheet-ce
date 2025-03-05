@@ -53,11 +53,11 @@ const webpack = {
         libraryExport: 'default'
     },
     optimization: {
-        minimize: true
+        minimize: false
     },
     devServer: {
-        static : {
-            directory : path.join(__dirname, "/public")
+        static: {
+            directory: path.join(__dirname, "/public")
         },
         headers: {
             "Access-Control-Allow-Origin": "*",

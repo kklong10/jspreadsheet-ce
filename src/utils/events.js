@@ -155,7 +155,6 @@ const mouseUpControls = function(e) {
 
 const mouseDownControls = function(e) {
     e = e || window.event;
-
     let mouseButton;
 
     if (e.buttons) {
@@ -186,7 +185,14 @@ const mouseDownControls = function(e) {
             }
 
             if (!e.target.classList.contains('jss_object')) {
-                resetSelection.call(libraryBase.jspreadsheet.current, true);
+                const spreadsheet = libraryBase.jspreadsheet.current.parent;
+                console.log('keepSelectionOnBlur',spreadsheet.config.keepSelectionOnBlur)
+                if (spreadsheet.config.keepSelectionOnBlur){
+                    //保持选择状态
+                }
+                else{
+                    resetSelection.call(libraryBase.jspreadsheet.current, true);
+                }
                 libraryBase.jspreadsheet.current = null;
             }
         }

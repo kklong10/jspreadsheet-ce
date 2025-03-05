@@ -24,45 +24,45 @@ declare namespace jspreadsheet {
     format?: string;
 
     /**
-     * Open calendar in full screen mode (this is automatic set for screensize < 800).
+     * 以全屏模式打开日历（这会自动为屏幕尺寸 < 800 设置）。
      */
     fullscreen?: boolean;
 
-    /** Placeholder. */
+    /** 占位符。 */
     placeholder?: string;
 
     /**
-     * Allow keyboard date entry.
+     * 允许键盘日期输入。
      * @default true
      */
     readonly?: boolean;
 
     /**
-     * Show the reset button.
+     * 显示重置按钮。
      * @default true
      */
     resetButton?: boolean;
 
     /**
-     * Show timepicker.
+     * 显示时间选择器。
      * @default false
      */
     time?: boolean;
 
-    /** Today is default. */
+    /** 默认为今天。 */
     today?: boolean;
   }
 
   interface CustomEditor {
     /**
-     * Event responsible for closing the editor of a cell with a custom editor.
-     * @param cell - Td tag whose editor should close.
-     * @param save - If true, the value returned by this event will be the cell's new value. Otherwise, the value returned by this event is ignored.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param instance - Worksheet instance.
-     * @param options - Column configuration object.
-     * @returns New cell value.
+     * 事件负责关闭具有自定义编辑器的单元格的编辑器。
+     * @param cell - 应该关闭其编辑器的 Td 标签。
+     * @param save - 如果为 true，则此事件返回的值将是单元格的新值。 否则，此事件返回的值将被忽略。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param instance - 工作表实例。
+     * @param options - 列配置对象。
+     * @returns 新的单元格值。
      */
     closeEditor?: (
       cell: HTMLTableCellElement,
@@ -70,18 +70,18 @@ declare namespace jspreadsheet {
       x: number,
       y: number,
       instance: WorksheetInstance,
-      options: Column,
+      options: Column
     ) => CellValue | undefined;
 
     /**
-     * Event called when creating new cells.
-     * @param cell - HTML element prepared to be the new cell.
-     * @param value - Cell value.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param instance - Worksheet instance.
-     * @param options - Column configuration object.
-     * @returns HTML element that will be the new cell.
+     * 创建新单元格时调用的事件。
+     * @param cell - 准备作为新单元格的 HTML 元素。
+     * @param value - 单元格值。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param instance - 工作表实例。
+     * @param options - 列配置对象。
+     * @returns 将成为新单元格的 HTML 元素。
      */
     createCell?: (
       cell: HTMLTableCellElement,
@@ -89,18 +89,18 @@ declare namespace jspreadsheet {
       x: number,
       y: number,
       instance: WorksheetInstance,
-      options: Column,
+      options: Column
     ) => HTMLTableCellElement;
 
     /**
-     * Event responsible for opening the editor of a cell with a custom editor.
-     * @param cell - Td tag whose editor should open.
-     * @param value - Cell value.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param instance - Worksheet instance.
-     * @param options - Column configuration object.
-     * @param e - Event that called this method.
+     * 事件负责打开具有自定义编辑器的单元格的编辑器。
+     * @param cell - 应该打开其编辑器的 Td 标签。
+     * @param value - 单元格值。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param instance - 工作表实例。
+     * @param options - 列配置对象。
+     * @param e - 调用此方法的事件。
      */
     openEditor?: (
       cell: HTMLTableCellElement,
@@ -113,15 +113,15 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Event called before changing the value of a cell.
+     * 在更改单元格的值之前调用的事件。
      *
-     * The returned value will be the cell's new value.
-     * @param cell - Cell whose value has changed.
-     * @param value - New value.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param instance - Worksheet instance.
-     * @param options - Column configuration object.
+     * 返回的值将是单元格的新值。
+     * @param cell - 其值已更改的单元格。
+     * @param value - 新值。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param instance - 工作表实例。
+     * @param options - 列配置对象。
      */
     updateCell?: (
       cell: HTMLTableCellElement,
@@ -129,38 +129,38 @@ declare namespace jspreadsheet {
       x: number,
       y: number,
       instance: WorksheetInstance,
-      options: Column,
+      options: Column
     ) => CellValue | undefined;
   }
 
   type HorizontalAlign = "center" | "left" | "right" | "justify";
 
   interface BaseColumn {
-    /** Cell alignment. */
+    /** 单元格对齐方式。 */
     align?: HorizontalAlign;
 
     decimal?: string;
 
-    /** Cell mask. */
+    /** 单元格掩码。 */
     mask?: string;
 
-    /** Name used to refer to this column if the data is arranged as an array of objects. */
+    /** 如果数据排列为对象数组，则用于引用此列的名称。 */
     name?: string;
 
     /**
-     * Prevent user from changing cell values.
+     * 阻止用户更改单元格值。
      * @default false
      */
     readOnly?: boolean;
 
     /**
-     * Defines a modification that must be made to a cell value before it is displayed in the spreadsheet.
-     * @param cell - Cell whose value has changed.
-     * @param value - New value.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param instance - Worksheet instance.
-     * @param options - Column configuration object.
+     * 定义在单元格值显示在电子表格中之前必须对其进行的修改。
+     * @param cell - 其值已更改的单元格。
+     * @param value - 新值。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param instance - 工作表实例。
+     * @param options - 列配置对象。
      */
     render?: (
       cell: HTMLTableCellElement,
@@ -168,22 +168,22 @@ declare namespace jspreadsheet {
       x: number,
       y: number,
       instance: WorksheetInstance,
-      options: Column,
+      options: Column
     ) => void;
 
     /**
-     * If true, HTML inside column headings or cell values will be treated as regular text.
+     * 如果为 true，则列标题或单元格值内的 HTML 将被视为常规文本。
      *
-     * If false, the HTML will be treated as HTML.
+     * 如果为 false，则 HTML 将被视为 HTML。
      * @default true
      */
     stripHTML?: boolean;
 
-    /** Custom column title. */
+    /** 自定义列标题。 */
     title?: string;
 
     /**
-     * The type of cells in this column.
+     * 此列中单元格的类型。
      * @default "text"
      */
     type?:
@@ -200,11 +200,11 @@ declare namespace jspreadsheet {
       | "html"
       | CustomEditor;
 
-    /** Column width. */
+    /** 列宽。 */
     width?: string | number;
 
     /**
-     * Enable automatic word wrapping in cells in this column.
+     * 在此列的单元格中启用自动换行。
      * @default false
      */
     wordWrap?: boolean;
@@ -214,92 +214,92 @@ declare namespace jspreadsheet {
     autocomplete?: boolean;
 
     /**
-     * Allow selection of more than one item.
+     * 允许选择多个项目。
      * @default false
      */
     multiple?: boolean;
 
-    /** Options available in the dropdown. */
+    /** 下拉列表中可用的选项。 */
     source?: DropdownSourceItem[];
 
-    /** Url to fetch options from an external source. */
+    /** 从外部源获取选项的 Url。 */
     url?: string;
   }
 
   interface CalendarColumn extends BaseColumn {
-    /** Calendar options. */
+    /** 日历选项。 */
     options?: CalendarOptions;
   }
 
   interface ColorColumn extends Omit<BaseColumn, "render"> {
-    /** If undefined, the cell shows the hex code of the color, if "square", it shows a square filled with the color. */
+    /** 如果未定义，则单元格显示颜色的十六进制代码，如果为“square”，则显示一个填充颜色的正方形。 */
     render?: "square";
   }
 
   type Column = DropdownColumn | CalendarColumn | ColorColumn | BaseColumn;
 
   interface Row {
-    /** Row height. */
+    /** 行高。 */
     height?: string | number;
 
-    /** Text that replaces the row number. */
+    /** 替换行号的文本。 */
     title?: string;
   }
 
   interface ToolbarItemBase {
-    /** Tooltip shown when hovering over this option. */
+    /** 悬停在此选项上时显示的工具提示。 */
     tooltip?: string;
 
     /**
-     * Method called when the toolbar state should be updated.
-     * @param toolbarElement - Toolbar HTML element.
-     * @param toolbarInstance - Toolbar instance. For more information, read the jSuites toolbar documentation.
-     * @param itemElement - Toolbar item HTML element.
-     * @param worksheetInstance - Worksheet instance.
+     * 应更新工具栏状态时调用的方法。
+     * @param toolbarElement - 工具栏 HTML 元素。
+     * @param toolbarInstance - 工具栏实例。 有关更多信息，请阅读 jSuites 工具栏文档。
+     * @param itemElement - 工具栏项目 HTML 元素。
+     * @param worksheetInstance - 工作表实例。
      */
     updateState?: (
       toolbarElement: HTMLDivElement,
       toolbarInstance: Record<string, any>,
       itemElement: HTMLDivElement,
-      worksheetInstance: WorksheetInstance,
+      worksheetInstance: WorksheetInstance
     ) => void;
 
     [property: string]: any;
   }
 
   interface ToolbarIconItem extends ToolbarItemBase {
-    /** Defines the icon (from material icons). */
+    /** 定义图标（来自 material icons）。 */
     content: string;
 
     /**
-     * Event fired when clicking on the html item referring to that item.
-     * @param toolbarElement - Toolbar HTML element.
-     * @param toolbarInstance - Toolbar instance. For more information, read the jSuites toolbar documentation.
-     * @param itemElement - Toolbar item HTML element.
-     * @param event - Pointer event that triggered the onclick.
+     * 单击引用该项目的 html 项目时触发的事件。
+     * @param toolbarElement - 工具栏 HTML 元素。
+     * @param toolbarInstance - 工具栏实例。 有关更多信息，请阅读 jSuites 工具栏文档。
+     * @param itemElement - 工具栏项目 HTML 元素。
+     * @param event - 触发 onclick 的指针事件。
      */
     onclick?: (
       toolbarElement: HTMLDivElement,
       toolbarInstance: Record<string, any>,
       itemElement: HTMLDivElement,
-      event: PointerEvent,
+      event: PointerEvent
     ) => void;
   }
 
   interface ToolbarSelectItem extends ToolbarItemBase {
     type: "select";
 
-    /** Defines the icon (from material icons). */
+    /** 定义图标（来自 material icons）。 */
     content: string;
 
     /**
-     * Event called when the item picker value is changed.
-     * @param itemElement - Toolbar item HTML element.
-     * @param pickerInstance - Picker instance. For more information, read the jSuites picker documentation.
-     * @param value - New picker value.
-     * @param value2 - New picker value.
-     * @param valueIndex - Index of the new picker value.
-     * @param event - Pointer event that triggered this event.
+     * 更改项目选择器值时调用的事件。
+     * @param itemElement - 工具栏项目 HTML 元素。
+     * @param pickerInstance - 选择器实例。 有关更多信息，请阅读 jSuites 选择器文档。
+     * @param value - 新的选择器值。
+     * @param value2 - 新的选择器值。
+     * @param valueIndex - 新的选择器值的索引。
+     * @param event - 触发此事件的指针事件。
      */
     onchange?: (
       itemElement: HTMLDivElement,
@@ -307,40 +307,37 @@ declare namespace jspreadsheet {
       value: string,
       value2: string,
       valueIndex: string,
-      event: PointerEvent,
+      event: PointerEvent
     ) => void;
 
     /**
-     * Options available in the picker.
+     * 选择器中可用的选项。
      */
     options?: string[];
 
     /**
-     * Creates picker items based on the picker options.
-     * @param option - One of the items in the {@link ToolbarSelectItem.options} array.
-     * @param pickerInstance - Picker instance. For more information, read the jSuites picker documentation.
-     * @returns string representing the HTML of the picker item.
+     * 根据选择器选项创建选择器项目。
+     * @param option - {@link ToolbarSelectItem.options} 数组中的一个项目。
+     * @param pickerInstance - 选择器实例。 有关更多信息，请阅读 jSuites 选择器文档。
+     * @returns 表示选择器项目的 HTML 的字符串。
      */
-    render?: (
-      option: string,
-      pickerInstance: Record<string, any>,
-    ) => string;
+    render?: (option: string, pickerInstance: Record<string, any>) => string;
 
-    /** Initial value of the selectbox. */
+    /** selectbox 的初始值。 */
     value?: string;
 
-    /** Item width. */
+    /** 项目宽度。 */
     width?: string;
   }
 
   interface ToolbarColorItem extends ToolbarItemBase {
     type: "color";
 
-    /** Defines the icon (from material icons). */
+    /** 定义图标（来自 material icons）。 */
     content: string;
 
     /**
-     * Style that should be changed when input value changes. If this property is set, the onclick event is overridden.
+     * 输入值更改时应更改的样式。 如果设置了此属性，则 onclick 事件将被覆盖。
      */
     k: string;
   }
@@ -350,9 +347,13 @@ declare namespace jspreadsheet {
   }
 
   /**
-   * Item that makes up the toolbar configuration array. This item may have properties not described here. For more information, read the jSuites toolbar documentation.
+   * 构成工具栏配置数组的项目。 此项目可能具有此处未描述的属性。 有关更多信息，请阅读 jSuites 工具栏文档。
    */
-  type ToolbarItem = (ToolbarIconItem | ToolbarSelectItem | ToolbarColorItem | ToolbarDivisorItem);
+  type ToolbarItem =
+    | ToolbarIconItem
+    | ToolbarSelectItem
+    | ToolbarColorItem
+    | ToolbarDivisorItem;
 
   interface NestedHeaderCell {
     id?: string;
@@ -374,16 +375,16 @@ declare namespace jspreadsheet {
   }
 
   /**
-   * Item compared in column ordering.
+   * 在列排序中比较的项目。
    *
-   * It is composed respectively by the index of the row it represents and by the value of that row in the sorting column.
+   * 它分别由它所代表的行的索引和该行在排序列中的值组成。
    */
   type SortingItem = [number, CellValue];
 
   type MetaInformation = Record<string, any>;
 
   type ContextMenuItem = {
-    type?: 'line' | 'divisor' | 'default';
+    type?: "line" | "divisor" | "default";
     title: string;
     icon?: string;
     id?: string;
@@ -394,7 +395,8 @@ declare namespace jspreadsheet {
     submenu?: Array<ContextMenuItem>;
   };
 
-  type ContextMenuRole = "select-all"
+  type ContextMenuRole =
+    | "select-all"
     | "fill-handle"
     | "row"
     | "nested"
@@ -409,40 +411,46 @@ declare namespace jspreadsheet {
 
   interface SpreadsheetOptions {
     /**
-     * Show or not the "about" item in the context menu.
+     * 如果为 true，失去焦点时，将保持单元格选择。
+     * @default false
+     */
+    keepSelectionOnBlur?: boolean;
+
+    /**
+     * 在上下文菜单中显示或不显示“关于”项目。
      * @default true
      */
     about?: boolean;
 
     /**
-     * Allow table export as csv.
+     * 允许将表格导出为 csv。
      * @default true
      */
     allowExport?: boolean;
 
     /**
-     * If true, Jss will try to convert cell contents used in formulas to numbers
+     * 如果为 true，Jss 将尝试将公式中使用的单元格内容转换为数字
      * @default true
      */
     autoCasting?: boolean;
 
     /**
-     * Auto increment actions when using the dragging corner.
+     * 使用拖动角时自动递增操作。
      * @default true
      */
     autoIncrement?: boolean;
 
     /**
-     * Creates context menu when user clicks with secondary mouse button.
-     * @param instance - Instance of the worksheet on which the click was made.
-     * @param colIndex - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param rowIndex - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param event - pointer event that triggered this event.
-     * @param items - jss default context menu.
-     * @param role - indicates in which part of the spreadsheet the click occurred.
-     * @param x - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param y - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @returns Context menu configuration that should be created.
+     * 当用户使用鼠标右键单击时创建上下文菜单。
+     * @param instance - 发生单击的工作表的实例。
+     * @param colIndex - 单击元素的水平索引。 此值的含义取决于 {@link role} 参数。
+     * @param rowIndex - 单击元素的垂直索引。 此值的含义取决于 {@link role} 参数。
+     * @param event - 触发此事件的指针事件。
+     * @param items - jss 默认上下文菜单。
+     * @param role - 指示单击发生在电子表格的哪个部分。
+     * @param x - 单击元素的水平索引。 此值的含义取决于 {@link role} 参数。
+     * @param y - 单击元素的垂直索引。 此值的含义取决于 {@link role} 参数。
+     * @returns 应创建的上下文菜单配置。
      */
     contextMenu?: (
       instance: WorksheetInstance,
@@ -452,34 +460,34 @@ declare namespace jspreadsheet {
       items: ContextMenuItem[],
       role: ContextMenuRole,
       x: string | number | null,
-      y: string | number | null,
+      y: string | number | null
     ) => ContextMenuItem[] | null | undefined;
 
     /**
-     * Enable the formula debug notices.
+     * 启用公式调试通知。
      * @default false
      */
     debugFormulas?: boolean;
 
     /**
-     * Fullscreen mode.
+     * 全屏模式。
      * @default false
      */
     fullscreen?: boolean;
 
     /**
-     * Include header titles on download.
+     * 在下载中包含标题。
      * @default false
      */
     includeHeadersOnDownload?: boolean;
 
-    /** Spreadsheet namespace */
+    /** 电子表格命名空间 */
     namespace?: string;
 
     /**
-     * Occurs after all changes are applied in the tables.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param changes - list of changes.
+     * 在表格中应用所有更改后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param changes - 更改列表。
      */
     onafterchanges?: (
       instance: WorksheetInstance,
@@ -487,12 +495,12 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs before a column value is changed. If any value is returned, it will be the cell's new value.
-     * @param instance - Instance of the worksheet where the changes will occur.
-     * @param cell - HTML element that represents the cell being changed.
-     * @param colIndex - Cell column index being changed.
-     * @param rowIndex - Cell row index being changed.
-     * @param newValue - Value being applied to the cell.
+     * 在更改列值之前发生。 如果返回任何值，它将是单元格的新值。
+     * @param instance - 将发生更改的工作表的实例。
+     * @param cell - 表示正在更改的单元格的 HTML 元素。
+     * @param colIndex - 正在更改的单元格列索引。
+     * @param rowIndex - 正在更改的单元格行索引。
+     * @param newValue - 正在应用于单元格的值。
      */
     onbeforechange?: (
       instance: WorksheetInstance,
@@ -503,19 +511,19 @@ declare namespace jspreadsheet {
     ) => undefined | CellValue;
 
     /**
-     * Occurs before a column is excluded. If this method returns false, the removal will be canceled.
-     * @param instance - Instance of the worksheet where columns will be removed.
-     * @param removedColumns - Indexes of the columns to be removed.
+     * 在排除列之前发生。 如果此方法返回 false，则将取消删除。
+     * @param instance - 将删除列的工作表的实例。
+     * @param removedColumns - 要删除的列的索引。
      */
     onbeforedeletecolumn?: (
       instance: WorksheetInstance,
-      removedColumns: number[],
+      removedColumns: number[]
     ) => undefined | boolean;
 
     /**
-     * Occurs before a row is deleted. If this method returns false, the removal will be canceled.
-     * @param instance - Instance of the worksheet where rows will be removed.
-     * @param removedRows - Indexes of the rows to be removed.
+     * 在删除行之前发生。 如果此方法返回 false，则将取消删除。
+     * @param instance - 将删除行的工作表的实例。
+     * @param removedRows - 要删除的行的索引。
      */
     onbeforedeleterow?: (
       instance: WorksheetInstance,
@@ -523,51 +531,56 @@ declare namespace jspreadsheet {
     ) => undefined | boolean;
 
     /**
-     * Intercept and parse a formula just before the execution.
-     * @param instance - Instance of the worksheet.
-     * @param expression - Formula that triggered the event.
-     * @param x - Column index of the cell whose formula triggered the event.
-     * @param y - Row index of the cell whose formula triggered the event
+     * 在执行之前拦截并解析公式。
+     * @param instance - 工作表的实例。
+     * @param expression - 触发事件的公式。
+     * @param x - 公式触发事件的单元格的列索引。
+     * @param y - 公式触发事件的单元格的行索引
      */
-    onbeforeformula?: (instance: WorksheetInstance, expression: string, x?: number, y?: number) => false | string | undefined;
+    onbeforeformula?: (
+      instance: WorksheetInstance,
+      expression: string,
+      x?: number,
+      y?: number
+    ) => false | string | undefined;
 
     /**
-     * Occurs before a new column is inserted. If this method returns false, the insertion will be canceled.
-     * @param instance - Instance of the worksheet where columns will be added.
-     * @param columns - Settings for columns to be added.
+     * 在插入新列之前发生。 如果此方法返回 false，则将取消插入。
+     * @param instance - 将添加列的工作表的实例。
+     * @param columns - 要添加的列的设置。
      */
     onbeforeinsertcolumn?: (
       instance: WorksheetInstance,
       columns: {
-        column: number,
-        options: Column,
-        data?: CellValue[]
-      }[],
+        column: number;
+        options: Column;
+        data?: CellValue[];
+      }[]
     ) => undefined | boolean;
 
     /**
-     * Occurs before a new row is inserted. If this method returns false, the insertion will be canceled.
-     * @param instance - Instance of the worksheet where rows will be added.
-     * @param rows - Settings for rows to be added.
+     * 在插入新行之前发生。 如果此方法返回 false，则将取消插入。
+     * @param instance - 将添加行的工作表的实例。
+     * @param rows - 要添加的行的设置。
      */
     onbeforeinsertrow?: (
       instance: WorksheetInstance,
       rows: {
-        row: number,
-        data: CellValue[],
-      }[],
+        row: number;
+        data: CellValue[];
+      }[]
     ) => undefined | boolean;
 
     /**
-     * Occurs before the paste action is performed.
+     * 在执行粘贴操作之前发生。
      *
-     * If it returns false, the jss cancels the paste.
-     * If it returns a string, it will be the content pasted into the worksheet.
+     * 如果它返回 false，则 jss 取消粘贴。
+     * 如果它返回一个字符串，它将是粘贴到工作表中的内容。
      *
-     * @param instance - Instance of the worksheet where data will be pasted.
-     * @param copiedText - Text being pasted to the spreadsheet.
-     * @param colIndex - Column index where it will start the paste.
-     * @param rowIndex - Row index where it will start the paste.
+     * @param instance - 将粘贴数据的工作表的实例。
+     * @param copiedText - 正在粘贴到电子表格的文本。
+     * @param colIndex - 将开始粘贴的列索引。
+     * @param rowIndex - 将开始粘贴的行索引。
      */
     onbeforepaste?: (
       instance: WorksheetInstance,
@@ -577,15 +590,15 @@ declare namespace jspreadsheet {
     ) => undefined | boolean | string;
 
     /**
-     * Occurs before persisting any changes to the server.
+     * 在将任何更改持久保存到服务器之前发生。
      *
-     * This event is only called when the spreadsheet has the {@link WorksheetOptions.persistence} property set.
+     * 仅当电子表格具有 {@link WorksheetOptions.persistence} 属性集时才调用此事件。
      *
-     * If this event returns false, the change is not persisted on the server.
-     * If it returns a truthy value, that value is persisted instead of the initial value.
-     * @param spreadsheetInstance - Spreadsheet instance.
-     * @param worksheetInstance - Instance of the worksheet to be saved.
-     * @param data - Changed data.
+     * 如果此事件返回 false，则更改不会持久保存在服务器上。
+     * 如果它返回一个真值，则该值将持久保存，而不是初始值。
+     * @param spreadsheetInstance - 电子表格实例。
+     * @param worksheetInstance - 要保存的工作表的实例。
+     * @param data - 更改的数据。
      */
     onbeforesave?: (
       spreadsheetInstance: SpreadsheetInstance,
@@ -594,13 +607,13 @@ declare namespace jspreadsheet {
     ) => any;
 
     /**
-     * Occurs before the selection is changed.
-     * @param instance - Worksheet instance where the selection will occur.
-     * @param borderLeftIndex - Index of the first column contained by the selection.
-     * @param borderTopIndex - Index of the first row contained by the selection.
-     * @param borderRightIndex - Index of the last column contained by the selection.
-     * @param borderBottomIndex - Index of the last row contained by the selection.
-     * @param origin - Javascript event that triggered this jss event.
+     * 在更改选择之前发生。
+     * @param instance - 将发生选择的工作表实例。
+     * @param borderLeftIndex - 选择所包含的第一列的索引。
+     * @param borderTopIndex - 选择所包含的第一行的索引。
+     * @param borderRightIndex - 选择所包含的最后一列的索引。
+     * @param borderBottomIndex - 选择所包含的最后一行的索引。
+     * @param origin - 触发此 jss 事件的 Javascript 事件。
      */
     onbeforeselection?: (
       instance: WorksheetInstance,
@@ -608,23 +621,23 @@ declare namespace jspreadsheet {
       borderTopIndex: number,
       borderRightIndex: number,
       borderBottomIndex: number,
-      origin: Event | undefined,
+      origin: Event | undefined
     ) => false | undefined;
 
     /**
-     * Occurs when the table is blurred.
-     * @param instance - Instance of the worksheet that was blurred.
+     * 当表格失去焦点时发生。
+     * @param instance - 失去焦点的工作表的实例。
      */
     onblur?: (instance: WorksheetInstance) => void;
 
     /**
-     * Occurs after a column value is changed.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param cell - HTML element that represents the cell being changed.
-     * @param colIndex - Cell column index being changed.
-     * @param rowIndex - Cell row index being changed.
-     * @param newValue - New cell value.
-     * @param oldValue - Old cell value.
+     * 在更改列值之后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param cell - 表示正在更改的单元格的 HTML 元素。
+     * @param colIndex - 正在更改的单元格列索引。
+     * @param rowIndex - 正在更改的单元格行索引。
+     * @param newValue - 新的单元格值。
+     * @param oldValue - 旧的单元格值。
      */
     onchange?: (
       instance: WorksheetInstance,
@@ -636,88 +649,88 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs when a column heading is changed.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param colIndex - Index of the column that was renamed.
-     * @param newValue - New column title.
-     * @param oldValue - Old column title.
+     * 更改列标题时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param colIndex - 已重命名的列的索引。
+     * @param newValue - 新的列标题。
+     * @param oldValue - 旧的列标题。
      */
     onchangeheader?: (
       instance: WorksheetInstance,
       colIndex: number,
       newValue: string,
-      oldValue: string,
+      oldValue: string
     ) => void;
 
     /**
-     * Occurs when a "setMeta" is called.
+     * 调用“setMeta”时发生。
      *
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param cellName - An object with the metadata changes.
+     * @param instance - 发生更改的工作表的实例。
+     * @param cellName - 包含元数据更改的对象。
      */
     onchangemeta?: (
       instance: WorksheetInstance,
-      cellName: Record<string, any>,
+      cellName: Record<string, any>
     ) => void;
 
     /**
-     * Occurs when the page is changed.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param newPageNumber - Page the worksheet is on.
-     * @param oldPageNumber - Page the worksheet was on.
-     * @param quantityPerPage - Maximum number of lines on pages.
+     * 更改页面时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param newPageNumber - 工作表所在的页面。
+     * @param oldPageNumber - 工作表所在的页面。
+     * @param quantityPerPage - 页面上的最大行数。
      */
     onchangepage?: (
       instance: WorksheetInstance,
       newPageNumber: number,
       oldPageNumber: number,
-      quantityPerPage: number,
+      quantityPerPage: number
     ) => void;
 
     /**
-     * Occurs when a "setStyle" is called.
+     * 调用“setStyle”时发生。
      *
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param cellName - An object with the changes.
+     * @param instance - 发生更改的工作表的实例。
+     * @param cellName - 包含更改的对象。
      */
     onchangestyle?: (
       instance: WorksheetInstance,
-      changes: Record<string, string>,
+      changes: Record<string, string>
     ) => void;
 
     /**
-     * Occurs when a comment is changed.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param newComments - New comments.
-     * @param oldComments - Old comments.
+     * 更改注释时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param newComments - 新的注释。
+     * @param oldComments - 旧的注释。
      */
     oncomments?: (
       instance: WorksheetInstance,
       newComments: Record<string, string | null>,
-      oldComments: Record<string, string | null>,
+      oldComments: Record<string, string | null>
     ) => void;
 
     /**
-     * Occurs when the contents of one or more cells are copied.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param selectedRange - Copied cell range.
-     * @param copiedData - Data from copied cell range.
-     * @param cut - If true, the action was cut. Otherwise, the action was copy.
+     * 复制一个或多个单元格的内容时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param selectedRange - 复制的单元格范围。
+     * @param copiedData - 来自复制的单元格范围的数据。
+     * @param cut - 如果为 true，则操作为剪切。 否则，操作为复制。
      */
     oncopy?: (
       instance: WorksheetInstance,
       selectedRange: [number, number, number, number],
       copiedData: string,
-      cut: boolean | undefined,
+      cut: boolean | undefined
     ) => string | false | undefined;
 
     /**
-     * Occurs when a cell is created.
-     * @param instance - Instance of the worksheet where the cell was created.
-     * @param cell - Cell HTML element.
-     * @param colIndex - Cell column index.
-     * @param rowIndex - Cell row index.
-     * @param newValue - Cell value.
+     * 创建单元格时发生。
+     * @param instance - 创建单元格的工作表的实例。
+     * @param cell - 单元格 HTML 元素。
+     * @param colIndex - 单元格列索引。
+     * @param rowIndex - 单元格行索引。
+     * @param newValue - 单元格值。
      */
     oncreatecell?: (
       instance: WorksheetInstance,
@@ -728,13 +741,13 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs when an editor is opened.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
-     * @param input - Input of the editor that was opened.
-     * @param options - Column settings.
+     * 打开编辑器时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param td - 打开其编辑器的单元格的 Td 标签。
+     * @param colIndex - 打开其编辑器的单元格的列索引。
+     * @param rowIndex - 打开其编辑器的单元格的行索引。
+     * @param input - 打开的编辑器的输入。
+     * @param options - 列设置。
      */
     oncreateeditor?: (
       instance: WorksheetInstance,
@@ -742,37 +755,34 @@ declare namespace jspreadsheet {
       colIndex: number,
       rowIndex: number,
       input: null,
-      options: Column,
+      options: Column
     ) => void;
 
     /**
-     * Occurs after a column is excluded.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param removedColumns - Indexes of the columns that were removed.
+     * 在排除列之后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param removedColumns - 已删除的列的索引。
      */
     ondeletecolumn?: (
       instance: WorksheetInstance,
-      removedColumns: number[],
+      removedColumns: number[]
     ) => void;
 
     /**
-     * Occurs after a row is excluded.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param removedRows - Indexes of the rows that were removed.
+     * 在排除行之后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param removedRows - 已删除的行的索引。
      */
-    ondeleterow?: (
-      instance: WorksheetInstance,
-      removedRows: number[],
-    ) => void;
+    ondeleterow?: (instance: WorksheetInstance, removedRows: number[]) => void;
 
     /**
-     * Occurs when a closeEditor is called.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
-     * @param editorValue - Value that was in the editor.
-     * @param wasSaved - Whether the value which was in the editor was saved in the cell or not.
+     * 调用 closeEditor 时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param td - 打开其编辑器的单元格的 Td 标签。
+     * @param colIndex - 打开其编辑器的单元格的列索引。
+     * @param rowIndex - 打开其编辑器的单元格的行索引。
+     * @param editorValue - 编辑器中的值。
+     * @param wasSaved - 编辑器中的值是否已保存在单元格中。
      */
     oneditionend?: (
       instance: WorksheetInstance,
@@ -784,11 +794,11 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs when a openEditor is called.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
+     * 调用 openEditor 时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param td - 打开其编辑器的单元格的 Td 标签。
+     * @param colIndex - 打开其编辑器的单元格的列索引。
+     * @param rowIndex - 打开其编辑器的单元格的行索引。
      */
     oneditionstart?: (
       instance: WorksheetInstance,
@@ -798,111 +808,109 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Event fired when any other event fires. It runs before the event that was called.
+     * 触发任何其他事件时触发的事件。 它在调用的事件之前运行。
      *
-     * If the called event has not been defined, the jss considers the value returned by onevent as the value returned by the called event.
-     * @param event - Name of the event that was called.
-     * @param rest - Arguments of the event that was called.
+     * 如果未定义调用的事件，则 jss 将 onevent 返回的值视为调用的事件返回的值。
+     * @param event - 调用的事件的名称。
+     * @param rest - 调用的事件的参数。
      */
     onevent?: (event: string, ...rest: any[]) => any;
 
     /**
-     * Occurs when the table is focused.
-     * @param instance - Instance of the worksheet that was focused on.
+     * 当表格获得焦点时发生。
+     * @param instance - 获得焦点的工作表的实例。
      */
     onfocus?: (instance: WorksheetInstance) => void;
 
     /**
-     * Occurs after a new column is inserted.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param columns - Columns that have been added.
+     * 在插入新列之后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param columns - 已添加的列。
      */
     oninsertcolumn?: (
       instance: WorksheetInstance,
       columns: {
-        column: number,
-        options: Column,
-        data?: CellValue[]
-      }[],
-    ) => void;
-
-    /**
-     * Occurs after a new row is inserted.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param rows - Rows that have been added.
-     */
-    oninsertrow?: (
-      instance: WorksheetInstance,
-      rows: {
-        row: number,
-        data: CellValue[],
+        column: number;
+        options: Column;
+        data?: CellValue[];
       }[]
     ) => void;
 
     /**
-     * Event fired when a spreadsheet is created.
-     * @param instance - Jspreadsheet instance.
+     * 在插入新行之后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param rows - 已添加的行。
      */
-    onload?: (
-      instance: SpreadsheetInstance
+    oninsertrow?: (
+      instance: WorksheetInstance,
+      rows: {
+        row: number;
+        data: CellValue[];
+      }[]
     ) => void;
 
     /**
-     * Occurs when a group of cells is merged.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param merges - Merges that were created.
+     * 创建电子表格时触发的事件。
+     * @param instance - Jspreadsheet 实例。
+     */
+    onload?: (instance: SpreadsheetInstance) => void;
+
+    /**
+     * 合并一组单元格时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param merges - 已创建的合并。
      */
     onmerge?: (
       instance: WorksheetInstance,
-      merges: Record<string, [number, number]>,
+      merges: Record<string, [number, number]>
     ) => void;
 
     /**
-     * Occurs after a column is moved to a new position.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param oldPosition - Column index before movement.
-     * @param newPosition - Column index after movement.
-     * @param quantity - Number of columns that were moved.
+     * 将列移动到新位置后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param oldPosition - 移动前的列索引。
+     * @param newPosition - 移动后的列索引。
+     * @param quantity - 移动的列数。
      */
     onmovecolumn?: (
       instance: WorksheetInstance,
       oldPosition: number,
       newPosition: number,
-      quantity: number,
+      quantity: number
     ) => void;
 
     /**
-     * Occurs after a row is moved to a new position.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param oldPosition - Row index before movement.
-     * @param newPosition - Row index after movement.
-     * @param quantity - Number of rows that were moved.
+     * 将行移动到新位置后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param oldPosition - 移动前的行索引。
+     * @param newPosition - 移动后的行索引。
+     * @param quantity - 移动的行数。
      */
     onmoverow?: (
       instance: WorksheetInstance,
       oldPosition: number,
       newPosition: number,
-      quantity: number,
+      quantity: number
     ) => void;
 
     /**
-     * Occurs after a paste action is performed in the javascript table.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param pastedInfo - Information that was pasted into the worksheet.
+     * 在 javascript 表中执行粘贴操作后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param pastedInfo - 粘贴到工作表中的信息。
      */
     onpaste?: (
       instance: WorksheetInstance,
       pastedInfo: {
-        x: number,
-        y: number,
-        value: CellValue,
+        x: number;
+        y: number;
+        value: CellValue;
       }[][]
     ) => void;
 
     /**
-     * Occurs when a change is redone.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param historyRecord - History item that was redone. If there are no more actions to redo, it takes the value undefined.
+     * 重做更改时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param historyRecord - 已重做的历史记录项。 如果没有更多操作可以重做，则它采用未定义的值。
      */
     onredo?: (
       instance: WorksheetInstance,
@@ -910,25 +918,25 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs after a change in column width.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param colIndex - Index of columns that were resized.
-     * @param newWidth - New column widths.
-     * @param oldWidth - Old column widths.
+     * 更改列宽后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param colIndex - 已调整大小的列的索引。
+     * @param newWidth - 新的列宽。
+     * @param oldWidth - 旧的列宽。
      */
     onresizecolumn?: (
       instance: WorksheetInstance,
       colIndex: number | number[],
       newWidth: number | number[],
-      oldWidth: number | number[],
+      oldWidth: number | number[]
     ) => void;
 
     /**
-     * Occurs after a change in row height.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param rowIndex - Index of row being resized.
-     * @param newHeight - New row height.
-     * @param oldHeight - Old row height.
+     * 更改行高后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param rowIndex - 正在调整大小的行的索引。
+     * @param newHeight - 新的行高。
+     * @param oldHeight - 旧的行高。
      */
     onresizerow?: (
       instance: WorksheetInstance,
@@ -938,10 +946,10 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs when persistence on the server succeeds.
-     * @param spreadsheetInstance - Spreadsheet instance.
-     * @param worksheetInstance - Instance of the worksheet to be saved.
-     * @param data - Data that has been sent to the server.
+     * 在服务器上持久保存成功时发生。
+     * @param spreadsheetInstance - 电子表格实例。
+     * @param worksheetInstance - 要保存的工作表的实例。
+     * @param data - 已发送到服务器的数据。
      */
     onsave?: (
       spreadsheetInstance: SpreadsheetInstance,
@@ -950,13 +958,13 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Occurs when selection is changed.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param borderLeftIndex - Index of the first column contained by the selection.
-     * @param borderTopIndex - Index of the first row contained by the selection.
-     * @param borderRightIndex - Index of the last column contained by the selection.
-     * @param borderBottomIndex - Index of the last row contained by the selection.
-     * @param origin - Javascript event that triggered this jss event.
+     * 更改选择时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param borderLeftIndex - 选择所包含的第一列的索引。
+     * @param borderTopIndex - 选择所包含的第一行的索引。
+     * @param borderRightIndex - 选择所包含的最后一列的索引。
+     * @param borderBottomIndex - 选择所包含的最后一行的索引。
+     * @param origin - 触发此 jss 事件的 Javascript 事件。
      */
     onselection?: (
       instance: WorksheetInstance,
@@ -964,27 +972,27 @@ declare namespace jspreadsheet {
       borderTopIndex: number,
       borderRightIndex: number,
       borderBottomIndex: number,
-      origin: Event | undefined,
+      origin: Event | undefined
     ) => void;
 
     /**
-     * Occurs after a colum is sorted.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param colIndex - Index of the column that was sorted.
-     * @param order - Sorting direction. 0 for ascending and 1 for descending.
-     * @param newOrderValues - The new order of the rows.
+     * 对列进行排序后发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param colIndex - 已排序的列的索引。
+     * @param order - 排序方向。 0 表示升序，1 表示降序。
+     * @param newOrderValues - 行的新顺序。
      */
     onsort?: (
       instance: WorksheetInstance,
       colIndex: number,
       order: 0 | 1,
-      newOrderValues: number[],
+      newOrderValues: number[]
     ) => void;
 
     /**
-     * Occurs when a change is undone.
-     * @param instance - Instance of the worksheet where the change occurred.
-     * @param historyRecord - History item that was undone. If there are no more actions to undo, it takes the value undefined.
+     * 撤消更改时发生。
+     * @param instance - 发生更改的工作表的实例。
+     * @param historyRecord - 已撤消的历史记录项。 如果没有更多操作可以撤消，则它采用未定义的值。
      */
     onundo?: (
       instance: WorksheetInstance,
@@ -992,91 +1000,95 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Enable execution of formulas inside the table.
+     * 启用表格内公式的执行。
      * @default true
      */
     parseFormulas?: boolean;
 
     /**
-     * Function used in sorting columns. If not specified, the default function will be used.
-     * @param order - Sorting direction. 0 for ascending and 1 for descending.
+     * 用于对列进行排序的函数。 如果未指定，将使用默认函数。
+     * @param order - 排序方向。 0 表示升序，1 表示降序。
      */
     sorting?: (
       order: 0 | 1
     ) => (itemA: SortingItem, itemB: SortingItem) => number;
 
     /**
-     * If false, HTML inside cell values will be treated as regular text. If true, the HTML will be treated as HTML.
+     * 如果为 false，则单元格值内的 HTML 将被视为常规文本。 如果为 true，则 HTML 将被视为 HTML。
      * @default false
      */
     parseHTML?: boolean;
 
-    /** Add custom toolbars. */
-    toolbar?: boolean | ToolbarItem[] | ((defaultToolbar: ToolbarItem[]) => ToolbarItem[]) | Record<string, any>;
+    /** 添加自定义工具栏。 */
+    toolbar?:
+      | boolean
+      | ToolbarItem[]
+      | ((defaultToolbar: ToolbarItem[]) => ToolbarItem[])
+      | Record<string, any>;
 
     /**
-     * Worksheet settings.
+     * 工作表设置。
      */
     worksheets: WorksheetOptions[];
   }
 
   interface WorksheetOptions {
     /**
-     * Allow comments over the cells.
+     * 允许对单元格进行注释。
      * @default true
      */
     allowComments?: boolean;
 
     /**
-     * Allow delete a column.
+     * 允许删除列。
      * @default true
      */
     allowDeleteColumn?: boolean;
 
     /**
-     * Allow delete a row.
+     * 允许删除行。
      * @default true
      */
     allowDeleteRow?: boolean;
 
     /**
-     * Allow remove all rows. Otherwise, at least one row will be kept.
+     * 允许删除所有行。 否则，将保留至少一行。
      * @default false
      */
     allowDeletingAllRows?: boolean;
 
     /**
-     * Allow insert a new column.
+     * 允许插入新列。
      * @default true
      */
     allowInsertColumn?: boolean;
 
     /**
-     * Allow insert a new row.
+     * 允许插入新行。
      * @default true
      */
     allowInsertRow?: boolean;
 
     /**
-     * Allow user to insert a new column using tab key on last column.
+     * 允许用户在最后一列上使用 tab 键插入新列。
      * @default true
      */
     allowManualInsertColumn?: boolean;
 
     /**
-     * Allow user to insert a new row using space key on last row.
+     * 允许用户在最后一行上使用空格键插入新行。
      * @default true
      */
     allowManualInsertRow?: boolean;
 
     /**
-     * Allow rename a column.
+     * 允许重命名列。
      * @default true
      */
     allowRenameColumn?: boolean;
 
     /**
-     * Css classes to apply to cells. Only one class per cell is accepted.
+     * Css 类应用于单元格。 每个单元格只接受一个类。
      * @example
      * {
      *    A1: "some-class",
@@ -1086,232 +1098,232 @@ declare namespace jspreadsheet {
     classes?: Record<string, string>;
 
     /**
-     * Allow column dragging.
+     * 允许列拖动。
      * @default true
      */
     columnDrag?: boolean;
 
     /**
-     * Allow column resizing.
+     * 允许调整列大小。
      * @default true
      */
     columnResize?: boolean;
 
-    /** Column settings. */
+    /** 列设置。 */
     columns?: Column[];
 
     /**
-     * Allow column sorting.
+     * 允许列排序。
      * @default true
      */
     columnSorting?: boolean;
 
     /**
-     * Worksheet comments. Each object key is a cell name and its value is its comment.
+     * 工作表注释。 每个对象键是一个单元格名称，其值是其注释。
      */
     comments?: Record<string, string>;
 
     /**
-     * Load a external CSV file from this URL.
+     * 从此 URL 加载外部 CSV 文件。
      */
     csv?: string;
 
     /**
-     * Default delimiter for the CSV file. This value is used for both import and export.
+     * CSV 文件的默认分隔符。 此值用于导入和导出。
      * @default ","
      */
     csvDelimiter?: string;
 
     /**
-     * Default filename for a download method.
+     * 下载方法的默认文件名。
      * @default "jspreadsheet"
      */
     csvFileName?: string;
 
     /**
-     * Load header titles from the CSV file.
+     * 从 CSV 文件加载标题标题。
      * @default false
      */
     csvHeaders?: boolean;
 
-    /** Data loaded into the spreadsheet. */
+    /** 加载到电子表格中的数据。 */
     data?: CellValue[][] | Record<string, CellValue>[];
 
     /**
-     * Default horizontal alignment used when a column does not have its alignment specified.
+     * 当列未指定对齐方式时使用的默认水平对齐方式。
      * @default "center"
      */
     defaultColAlign?: HorizontalAlign;
 
     /**
-     * Default width for columns with no specified width.
+     * 未指定宽度的列的默认宽度。
      * @default 100
      */
     defaultColWidth?: number;
 
     /**
-     * Default row height.
+     * 默认行高。
      */
     defaultRowHeight?: number;
 
     /**
-     * Allow table edition.
+     * 允许表格编辑。
      * @default true
      */
     editable?: boolean;
 
     /**
-     * Enable column filters.
+     * 启用列过滤器。
      * @default false
      */
     filters?: boolean;
 
     /**
-     * Set the initial footer of the spreadsheet
+     * 设置电子表格的初始页脚
      */
     footers?: string[][];
 
     /**
-     * Number of columns frozen at the top of the spreadsheet.
+     * 冻结电子表格顶部的列数。
      */
     freezeColumns?: number;
 
-    /** Activate the table lazyloading. */
+    /** 激活表格延迟加载。 */
     lazyLoading?: boolean;
 
-    /** Cells to be merged in the table innitialization. */
+    /** 在表格初始化中要合并的单元格。 */
     mergeCells?: Record<string, [number, number]>;
 
     /**
-     * Meta information.
+     * 元信息。
      */
     meta?: Record<string, MetaInformation>;
 
     /**
-     * Minimum table dimensions: [cols, rows].
+     * 最小表格尺寸：[列，行]。
      * @default [0, 0]
      */
     minDimensions?: [number, number];
 
     /**
-     * Minimum number of spare cols.
+     * 最小备用列数。
      * @default 0
      */
     minSpareCols?: number;
 
     /**
-     * Minimum number of spare rows.
+     * 最小备用行数。
      * @default 0
      */
     minSpareRows?: number;
 
-    /** Define the nested headers. */
+    /** 定义嵌套标题。 */
     nestedHeaders?: NestedHeaderCell[][];
 
-    /** Number of rows per page. */
+    /** 每页的行数。 */
     pagination?: number;
 
     /**
-     * Values available in the dropdown for choosing the number of rows per page.
+     * 下拉列表中可用的选项，用于选择每页的行数。
      *
-     * This dropdown is only visible when the {@link WorksheetOptions.search} option is true and the {@link WorksheetOptions.pagination} option is greater than 0.
+     * 仅当 {@link WorksheetOptions.search} 选项为 true 且 {@link WorksheetOptions.pagination} 选项大于 0 时，此下拉列表才可见。
      */
     paginationOptions?: number[];
 
     /**
-     * Try to identify the column type when the instance is created with a table tag.
+     * 尝试在使用表标记创建实例时识别列类型。
      * @default false
      */
     parseTableAutoCellType?: boolean;
 
     /**
-     * If creating the instance with a table tag, if this tag has no header, transform the first line into the header.
+     * 如果使用表标记创建实例，如果此标记没有标题，则将第一行转换为标题。
      * @default false
      */
     parseTableFirstRowAsHeader?: boolean;
 
     /**
-     * Route where requests for data persistence will be sent. If true, the {@link WorksheetOptions.url} property value will be used instead.
+     * 持久保存数据的请求将发送到的路由。 如果为 true，则使用 {@link WorksheetOptions.url} 属性值。
      */
     persistence?: boolean | string;
 
     /**
-     * Spreadsheet plugins.
+     * 电子表格插件。
      */
     plugins?: Record<string, () => Plugin>;
 
     /**
-     * DOM element for binding the javascript events. This property is normally used when JSS is running as a web component.
+     * 用于绑定 javascript 事件的 DOM 元素。 此属性通常在 JSS 作为 Web 组件运行时使用。
      */
     root?: HTMLElement;
 
     /**
-     * Allow row dragging.
+     * 允许行拖动。
      * @default true
      */
     rowDrag?: boolean;
 
     /**
-     * Allow row resizing.
+     * 允许调整行大小。
      * @default true
      */
     rowResize?: boolean;
 
-    /** Row settings. */
+    /** 行设置。 */
     rows?: Row[] | Record<number, Row>;
 
     /**
-     * Allow search in the table.
+     * 允许在表格中搜索。
      * @default false
      */
     search?: boolean;
 
     /**
-     * If true, Jss will capitalize characters that are part of formulas. This does not apply to characters enclosed in double quotes, which represent text within formulas.
+     * 如果为 true，Jss 将大写公式中包含的字符。 这不适用于双引号内的字符，它们表示公式中的文本。
      * @default true
      */
     secureFormulas?: boolean;
 
     /**
-     * Display the copy icon in the lower right corner of the selection.
+     * 在选择的右下角显示复制图标。
      * @default true
      */
     selectionCopy?: boolean;
 
     /**
-     * Cell styles.
+     * 单元格样式。
      */
     style?: Record<string, string>;
 
     /**
-     * Set the max height of the table.
-     * This property is only used when {@link WorksheetOptions.tableOverflow} is allowed.
+     * 设置表格的最大高度。
+     * 仅当允许 {@link WorksheetOptions.tableOverflow} 时才使用此属性。
      */
     tableHeight?: string | number;
 
     /**
-     * Allow table overflow.
+     * 允许表格溢出。
      * @default false
      */
     tableOverflow?: boolean;
 
     /**
-     * Set the max width of the table.
-     * This property is only used when {@link WorksheetOptions.tableOverflow} is allowed.
+     * 设置表格的最大宽度。
+     * 仅当允许 {@link WorksheetOptions.tableOverflow} 时才使用此属性。
      */
     tableWidth?: string | number;
 
     /**
-     * If true, cell contents may overflow over empty cells.
+     * 如果为 true，则单元格内容可能会溢出到空单元格上。
      * @default false
      */
     textOverflow?: boolean;
 
-    /** Load a external json file from this URL. */
+    /** 从此 URL 加载外部 json 文件。 */
     url?: string;
 
     /**
-     * Global text wrapping.
+     * 全局自动换行。
      * @default false
      */
     wordWrap?: boolean;
@@ -1319,129 +1331,133 @@ declare namespace jspreadsheet {
 
   interface JspreadsheetInstanceElement extends HTMLDivElement {
     /**
-     * Jss instance this element belongs to
+     * Jss 实例所属的元素
      */
     spreadsheet: SpreadsheetInstance;
   }
 
   interface JworksheetInstanceElement extends HTMLDivElement {
     /**
-     * Jss worksheet instance this element belongs to
+     * Jss 工作表实例所属的元素
      */
     jspreadsheet: WorksheetInstance;
   }
 
   interface DragInfo {
     /**
-     * Index where the row or column will be moved.
+     * 行或列将被移动到的索引。
      */
     destination: number;
   }
 
   interface DragColumnInfo extends DragInfo {
     /**
-     * Index of the column being moved.
+     * 正在移动的列的索引。
      */
     column: string;
 
     /**
-     * HTML element that corresponds to the column being moved.
+     * 对应于正在移动的列的 HTML 元素。
      */
     element: HTMLTableCellElement;
   }
 
   interface DragRowInfo extends DragInfo {
     /**
-     * Index of the row being moved.
+     * 正在移动的行的索引。
      */
     row: string;
 
     /**
-     * HTML element that corresponds to the row being moved.
+     * 对应于正在移动的行的 HTML 元素。
      */
     element: HTMLTableRowElement;
   }
 
   interface ResizeInfo {
     /**
-     * Mouse position when resizing started. This position refers to the vertical axis, when resizing a row, or the horizontal axis, when resizing a column.
+     * 调整大小开始时的鼠标位置。 此位置指的是垂直轴（调整行大小时）或水平轴（调整列大小时）。
      */
     mousePosition: number;
   }
 
   interface ResizeRowInfo extends ResizeInfo {
     /**
-     * HTML element that represents the row.
+     * 表示行的 HTML 元素。
      */
     element: HTMLTableRowElement;
 
     /**
-     * Old row height.
+     * 旧行高。
      */
     height: number;
 
     /**
-     * Index of the row being resized.
+     * 正在调整大小的行的索引。
      */
     row: string;
   }
 
   interface ResizeColumnInfo extends ResizeInfo {
     /**
-     * Index of the column being resized.
+     * 正在调整大小的列的索引。
      */
     column: string;
 
     /**
-     * Old column width.
+     * 旧列宽度。
      */
     width: number;
   }
 
   interface Plugin {
     /**
-     * This method is called before a worksheet is created.
-     * @param instance - New worksheet instance.
+     * 在创建工作表之前调用此方法。
+     * @param instance - 新工作表实例。
      */
     beforeinit?: (instance: WorksheetInstance) => void;
 
     /**
-     * Get spreadsheet config information.
+     * 获取电子表格配置信息。
      */
     getConfig: () => SpreadsheetOptions;
 
     /**
-     * This method is called when a worksheet is created.
-     * @param instance - New worksheet instance.
+     * 创建工作表时调用此方法。
+     * @param instance - 新工作表实例。
      */
     init?: (instance: WorksheetInstance) => void;
 
     /**
-     * Event fired when any other event fires.
-     * @param event - Name of the event that was called.
-     * @param rest - Arguments of the event that was called.
+     * 触发任何其他事件时触发的事件。
+     * @param event - 调用的事件的名称。
+     * @param rest - 调用的事件的参数。
      */
     onevent?: (event: string, ...rest: any[]) => void;
 
     /**
-     * This method is called before the spreadsheet sends data to the server.
-     * @param instance - Worksheet instance.
-     * @param method - Name of the method whose execution needs to be saved on the server.
-     * @param data - Arguments of the method whose execution needs to be saved on the server.
+     * 在电子表格将数据发送到服务器之前调用此方法。
+     * @param instance - 工作表实例。
+     * @param method - 需要在服务器上保存执行的​​方法的名称。
+     * @param data - 需要在服务器上保存执行的​​方法的参数。
      */
-    persistence?: (instance: WorksheetInstance, method: string, data: any) => void;
+    persistence?: (
+      instance: WorksheetInstance,
+      method: string,
+      data: any
+    ) => void;
 
     /**
-     * Method called before the context menu is displayed. If this method returns anything other than a falsy value, that value overrides the context menu settings.
-     * @param instance - Instance of the worksheet on which the click was made.
-     * @param colIndex - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param rowIndex - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param event - pointer event that triggered this method.
-     * @param items - jss default context menu.
-     * @param role - indicates in which part of the spreadsheet the click occurred.
-     * @param x - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @param y - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
-     * @returns Context menu configuration that should be created.
+     * 在显示上下文菜单之前调用的方法。 如果此方法返回除假值以外的任何值，则该值会覆盖上下文菜单设置。
+     * @param instance - 发生单击的工作表的实例。
+     * @param colIndex - 单击元素的水平索引。 此值的含义取决于 {@link role} 参数。
+     * @param rowIndex - 单击元素的垂直索引。 此值的含义取决于 {@link role} 参数。
+     * @param event - 触发此方法的指针事件。
+     * @param items - jss 默认上下文菜单。
+     * @param role - 指示单击发生在电子表格的哪个部分。
+     * @param x - 单击元素的水平索引。 此值的含义取决于 {@link role} 参数。
+     * @param y - 单击元素的垂直索引。 此值的含义取决于 {@link role} 参数。
+     * @returns 应创建的上下文菜单配置。
      */
     contextMenu?: (
       instance: WorksheetInstance,
@@ -1451,87 +1467,89 @@ declare namespace jspreadsheet {
       items: ContextMenuItem[],
       role: ContextMenuRole,
       x: number | null,
-      y: number | null,
+      y: number | null
     ) => ContextMenuItem[] | null | undefined;
 
     /**
-     * Method called before the toolbar is displayed. If this method returns anything other than a falsy value, that value overrides the toolbar settings.
-     * @param defaultToolbar 
+     * 在显示工具栏之前调用的方法。 如果此方法返回除假值以外的任何值，则该值会覆盖工具栏设置。
+     * @param defaultToolbar
      */
-    toolbar?: (defaultToolbar: ToolbarItem[]) => ToolbarItem[] | null | undefined;
+    toolbar?: (
+      defaultToolbar: ToolbarItem[]
+    ) => ToolbarItem[] | null | undefined;
   }
 
   interface SpreadsheetInstance {
     /**
-     * Spreadsheet settings.
+     * 电子表格设置。
      */
     config: SpreadsheetOptions;
 
     /**
-     * Jsuites contextmenu of this jss instance
+     * 此 jss 实例的 Jsuites 上下文菜单
      */
     contextMenu: HTMLDivElement;
 
     /**
-     * Root HTML element of this jss instance.
+     * 此 jss 实例的根 HTML 元素。
      */
     el: JspreadsheetInstanceElement;
 
     /**
-     * Alias for el.
-    */
+     * el 的别名。
+     */
     element: JspreadsheetInstanceElement;
 
     /**
-     * Toogle table fullscreen mode.
-     * @param activate - Desired mode. Default: The opposite of the current mode.
+     * 切换表格全屏模式。
+     * @param activate - 所需的模式。 默认：当前模式的相反。
      */
     fullscreen: (activate?: boolean) => void;
 
     /**
-     * Get the index of the currently active worksheet
+     * 获取当前活动工作表的索引
      */
     getWorksheetActive: () => number;
 
     /**
-     * Hide the toolbar.
+     * 隐藏工具栏。
      */
     hideToolbar: () => void;
 
     /**
-     * If true, the spreadsheet does not emit events.
+     * 如果为 true，则电子表格不会发出事件。
      */
     ignoreEvents?: boolean;
 
     /**
-     * Spreadsheet plugins.
+     * 电子表格插件。
      */
     plugins: Record<string, Plugin>;
 
     /**
-     * Change the spreadsheet settings.
-     * @param config - New settings.
+     * 更改电子表格设置。
+     * @param config - 新设置。
      */
     setConfig: (config: SpreadsheetOptions) => void;
 
     /**
-     * Add new plugins to the spreadsheet.
-     * @param plugins - New plugins.
+     * 向电子表格添加新插件。
+     * @param plugins - 新插件。
      */
     setPlugins: (plugins: Record<string, () => Plugin>) => void;
 
     /**
-     * Show the toolbar using the current settings.
+     * 使用当前设置显示工具栏。
      */
     showToolbar: () => void;
 
     /**
-     * HTML div tag used as the toolbar of this jss instance.
+     * 此 jss 实例的 HTML div 标签。
      */
     toolbar: HTMLDivElement;
 
     /**
-     * Instances of the worksheets that make up this spreadsheet.
+     * 组成此电子表格的工作表实例。
      */
     worksheets: WorksheetInstance[];
   }
@@ -1540,57 +1558,57 @@ declare namespace jspreadsheet {
     ads: HTMLDivElement;
 
     /**
-     * Close a cell editor.
-     * @param cell - HTML td tag whose editor must be closed.
-     * @param save - Whether or not to save editor content in cell.
+     * 关闭单元格编辑器。
+     * @param cell - HTML td 标签，其编辑器必须关闭。
+     * @param save - 是否将编辑器内容保存在单元格中。
      */
     closeEditor: (cell: HTMLTableCellElement, save: boolean) => void;
 
     /**
-     * List of "col" tags for this spreadsheet's table
+     * 此电子表格表的“col”标签列表
      */
     cols: {
-      colElement: HTMLTableColElement,
-      x: number,
+      colElement: HTMLTableColElement;
+      x: number;
     }[];
 
     /**
-     * Colgroup tag for this spreadsheet's table
+     * 此电子表格表的 Colgroup 标签
      */
     colgroupContainer: HTMLElement;
 
     content: HTMLDivElement;
 
     /**
-     * Copies or cuts the contents of selected cells in the worksheet.
-     * @param cut - If true, the operation is cut, if not, it is copy.
+     * 复制或剪切工作表中选定单元格的内容。
+     * @param cut - 如果为 true，则操作为剪切，如果不是，则为复制。
      */
     copy: (cut?: boolean) => void;
 
     /**
-     * HTML element that sits in the lower-right corner of selections.
+     * 位于选择右下角的 HTML 元素。
      */
     corner: HTMLDivElement;
 
     /**
-     * Create a new worksheet.
-     * @param options - Worksheet options.
+     * 创建新工作表。
+     * @param options - 工作表选项。
      */
     createWorksheet: (options: WorksheetOptions) => void;
 
     cursor: null | HTMLElement;
 
     /**
-     * Last content copied.
+     * 最后复制的内容。
      */
     data: string;
 
     /**
-     * Remove columns.
+     * 删除列。
      *
-     * This method returns false if the {@link SpreadsheetOptions.onbeforedeletecolumn} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
-     * @param columnNumber - Column index from which removal starts.
-     * @param numOfColumns - Number of columns to be removed.
+     * 如果 {@link SpreadsheetOptions.onbeforedeletecolumn} 事件返回 false 或“此操作将破坏任何现有的合并单元格。您确定吗？”对话框收到否定响应。
+     * @param columnNumber - 删除开始的列索引。
+     * @param numOfColumns - 要删除的列数。
      */
     deleteColumn: (
       columnNumber?: number,
@@ -1598,256 +1616,253 @@ declare namespace jspreadsheet {
     ) => false | undefined;
 
     /**
-     * Remove rows.
+     * 删除行。
      *
-     * This method returns false if the {@link SpreadsheetOptions.onbeforedeleterow} event returns false or if the dialog cases "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" receive a negative response.
-     * @param rowNumber - Row index from which removal starts.
-     * @param numOfRows - Number of rows to be removed.
+     * 如果 {@link SpreadsheetOptions.onbeforedeleterow} 事件返回 false 或对话框案例“此操作将破坏任何现有的合并单元格。您确定吗？”或“此操作将清除您的搜索结果。您确定吗？”收到否定响应。
+     * @param rowNumber - 删除开始的行索引。
+     * @param numOfRows - 要删除的行数。
      */
     deleteRow: (rowNumber?: number, numOfRows?: number) => false | undefined;
 
     /**
-     * Delete a worksheet.
-     * @param position - Worksheet index.
+     * 删除工作表。
+     * @param position - 工作表索引。
      */
     deleteWorksheet: (position: number) => void;
 
     /**
-     * Remove all merged cells.
+     * 删除所有合并的单元格。
      */
     destroyMerge: () => void;
 
     /**
-     * Emit an event.
-     * @param event - Event name.
-     * @param args - Arguments that should be passed to the event.
+     * 触发事件。
+     * @param event - 事件名称。
+     * @param args - 应传递给事件的参数。
      */
     dispatch: (event: string, ...args: any[]) => any;
 
     /**
-     * Simulates the action of the "arrow down" key.
-     * @param shiftKey - If true, the method simulates the action of the "arrow down" key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the "arrow down" key while the Ctrl key is pressed.
+     * 模拟“向下箭头”键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时“向下箭头”键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时“向下箭头”键的操作。
      */
     down: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Get the current data as a CSV file.
-     * @param includeHeaders - If true, include the header regardless of the {@link SpreadsheetOptions.includeHeadersOnDownload} property value.
-     * @param processed - If true, the result will contain the displayed cell values. Otherwise, the result will contain the actual cell values.
+     * 获取当前数据作为 CSV 文件。
+     * @param includeHeaders - 如果为 true，则包含标题，而不管 {@link SpreadsheetOptions.includeHeadersOnDownload} 属性值如何。
+     * @param processed - 如果为 true，则结果将包含显示的单元格值。 否则，结果将包含实际的单元格值。
      */
-    download: (
-      includeHeaders?: boolean,
-      processed?: boolean,
-    ) => void;
+    download: (includeHeaders?: boolean, processed?: boolean) => void;
 
     /**
-     * Stores information about the row or column being moved.
+     * 存储有关正在移动的行或列的信息。
      */
     dragging: null | DragColumnInfo | DragRowInfo;
 
     /**
-     * Currently open editor information. Respectively the cell whose editor is open, its initial value, its column index and its row index.
+     * 当前打开的编辑器信息。 分别是编辑器打开的单元格、其初始值、其列索引和其行索引。
      */
     edition: null | [HTMLTableCellElement, string, string, string];
 
     /**
-     * Root HTML element of this worksheet instance.
+     * 此工作表实例的根 HTML 元素。
      */
     element: JworksheetInstanceElement;
 
     /**
-     * Execute a formula.
-     * @param expression - Formula to be executed.
-     * @param x - Column index of the cell where the formula is.
-     * @param y - Row index of the cell where the formula is.
+     * 执行公式。
+     * @param expression - 要执行的公式。
+     * @param x - 公式所在单元格的列索引。
+     * @param y - 公式所在单元格的行索引。
      */
     executeFormula: (expression: string, x?: number, y?: number) => any;
 
     /**
-     * Table row containing filter inputs.
+     * 表行包含过滤器输入。
      */
     filter: null | HTMLTableRowElement;
 
     /**
-     * Active filters.
+     * 活性过滤器。
      */
     filters: (string[] | null)[];
 
     /**
-     * Simulates the action of the Home key.
-     * @param shiftKey - If true, the method simulates the action of the Home key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the Home key while the Ctrl key is pressed.
+     * 模拟 Home 键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时 Home 键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时 Home 键的操作。
      */
     first: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * List of formulas that are used within other formulas. Each key is the name of a cell containing a formula, and each value is a list of cells whose formulas use the cell specified in the key.
+     * 在其他公式中使用的公式列表。 每个键是包含公式的单元格的名称，每个值是其公式使用键中指定的单元格的单元格列表。
      */
     formula: Record<string, string[]>;
 
     /**
-     * Get cell DOM element by cell name.
-     * @param cell - Cell name.
+     * 按单元格名称获取单元格 DOM 元素。
+     * @param cell - 单元格名称。
      */
     getCell(cell: string): HTMLTableCellElement;
 
     /**
-     * Get cell DOM element by cell coords.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
+     * 按单元格坐标获取单元格 DOM 元素。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
      */
     getCell(x: number, y: number): HTMLTableCellElement;
 
     /**
-     * Get cell DOM element by cell coordinates.
-     * @param x - Column index of the cell.
-     * @param y - Row index of the cell.
+     * 按单元格坐标获取单元格 DOM 元素。
+     * @param x - 列索引。
+     * @param y - 行索引。
      */
     getCellFromCoords: (x: number, y: number) => HTMLTableCellElement;
 
     /**
-     * Get the data from one column by its index.
-     * @param columnNumber - Column index.
-     * @param processed - If true, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
+     * 按索引获取一列的数据。
+     * @param columnNumber - 列索引。
+     * @param processed - 如果为 true，则返回是使用单元格的 innerHTML 构建的。 否则，它是使用 {@link WorksheetOptions.data} 属性构建的。 默认：假。
      */
     getColumnData: (columnNumber: number, processed?: boolean) => CellValue[];
 
     /**
-     * Get comments from one or all cells.
-     * @param cell - Cell name. If it is a falsy value, the comments of all cells are returned.
+     * 从一个或所有单元格获取注释。
+     * @param cell - 单元格名称。 如果它是一个假值，则返回所有单元格的注释。
      */
-    getComments: (
-      cell?: string
-    ) => Record<string, string> | string;
+    getComments: (cell?: string) => Record<string, string> | string;
 
     /**
-     * Get worksheet config information.
+     * 获取工作表配置信息。
      */
     getConfig: () => WorksheetOptions;
 
     /**
-     * Get the full or partial table data.
-     * @param highlighted - If true, get only data from highlighted cells. If false, get data from all cells. Default: false.
-     * @param processed - If false, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
-     * @param delimiter - Column delimiter. If this property is specified, the result will be formatted like a csv.
-     * @param asJson - If this property is true, the result will be formatted as json.
+     * 获取全部或部分表格数据。
+     * @param highlighted - 如果为 true，则仅获取来自突出显示单元格的数据。 如果为 false，则获取所有单元格的数据。 默认：假。
+     * @param processed - 如果为 false，则返回是使用单元格的 innerHTML 构建的。 否则，它是使用 {@link WorksheetOptions.data} 属性构建的。 默认：假。
+     * @param delimiter - 列分隔符。 如果指定了此属性，则结果将被格式化为 csv。
+     * @param asJson - 如果此属性为 true，则结果将被格式化为 json。
      */
     getData: (
       highlighted?: boolean,
       processed?: boolean,
       delimiter?: string,
-      asJson?: boolean,
+      asJson?: boolean
     ) => CellValue[][];
 
     /**
-     * Get data from a range.
-     * @param range - Range of cells whose values ​​are to be returned.
-     * @param processed - If true, the method returns the values ​​of the HTML elements of the cells. Otherwise, the method returns the values ​​of the cells in the options.data array.
+     * 从范围获取数据。
+     * @param range - 其值要返回的单元格范围。
+     * @param processed - 如果为 true，则方法返回单元格 HTML 元素的值。 否则，该方法返回 options.data 数组中单元格的值。
      */
     getDataFromRange: (range: string, processed: true) => CellValue[][];
 
     /**
-     * Get the column title.
-     * @param column - Column index.
+     * 获取列标题。
+     * @param column - 列索引。
      */
     getHeader: (column: number) => string;
 
     /**
-     * Get all header titles.
-     * @param asArray - If true, returns the items in an array, if false, returns them separated by ";" within a single string.
+     * 获取所有标题标题。
+     * @param asArray - 如果为 true，则返回数组中的项目，如果为 false，则返回它们在单个字符串中用“;”分隔。
      */
     getHeaders: (asArray?: boolean) => string | string[];
 
     /**
-     * Get height of all rows.
+     * 获取所有行的高度。
      */
     getHeight(row?: undefined): string[];
 
     /**
-     * Get height of one row.
-     * @param row - Column index.
+     * 获取一行的高度。
+     * @param row - 列索引。
      */
     getHeight(row: number): string;
 
     /**
-     * Get the coordinates of the highlighted selections.
+     * 获取突出显示选择的坐标。
      */
-    getHighlighted: () => [number, number, number, number][]
+    getHighlighted: () => [number, number, number, number][];
 
     /**
-     * Get the innerHTML of a cell.
-     * @param cell - Cell name.
+     * 获取单元格的 innerHTML。
+     * @param cell - 单元格名称。
      */
     getLabel(cell: string): string;
 
     /**
-     * Get the innerHTML of a cell.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
+     * 获取单元格的 innerHTML。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
      */
     getLabel(x: number, y: number): string;
 
     /**
-     * Get information from one or all merged cells
-     * @param cellName - Cell name. If it is a falsy value, it returns the information of all merges. If the given cell is not the anchor of a merge, it returns null.
+     * 获取一个或所有合并单元格的信息
+     * @param cellName - 单元格名称。 如果它是一个假值，它返回所有合并的信息。 如果给定的单元格不是合并的锚点，则返回 null。
      */
     getMerge(
       cellName?: string
     ): Record<string, [number, number]> | [number, number] | null;
 
     /**
-     * Get meta information from one or all cells.
-     * @param cell - Cell name. If it is a falsy value, the metadata of all cells is returned.
+     * 从一个或所有单元格获取元信息。
+     * @param cell - 单元格名称。 如果它是一个假值，则返回所有单元格的元数据。
      */
     getMeta: (cell?: string) => any;
 
     /**
-     * Get the range description of the selected cells.
+     * 获取所选单元格范围的描述。
      */
     getRange: () => string;
 
     /**
-     * Get data from a row by its index.
-     * @param rowNumber - Row index.
-     * @param processed - If true, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
+     * 按索引获取一行的数据。
+     * @param rowNumber - 行索引。
+     * @param processed - 如果为 true，则返回是使用单元格的 innerHTML 构建的。 否则，它是使用 {@link WorksheetOptions.data} 属性构建的。 默认：假。
      */
     getRowData: (
       rowNumber: number,
-      processed?: boolean,
+      processed?: boolean
     ) => CellValue[] | undefined;
 
     /**
-     * Get information from selected cells in the worksheet.
-     * @param columnNameOnly - If true, the method returns the names of the selected cells. Otherwise, the method returns the records of the selected cells.
+     * 获取工作表中选定单元格的信息。
+     * @param columnNameOnly - 如果为 true，则方法返回选定单元格的名称。 否则，该方法返回选定单元格的记录。
      */
-    getSelected: (columnNameOnly?: boolean) => {
-      element: HTMLTableCellElement[][],
-      x: number,
-      y: number,
-    }[] | string[];
+    getSelected: (columnNameOnly?: boolean) =>
+      | {
+          element: HTMLTableCellElement[][];
+          x: number;
+          y: number;
+        }[]
+      | string[];
 
     /**
-     * Get indexes of the columns that have highlighted cells.
-     * @param visibleOnly - If true, the method returns only visible columns.
+     * 获取具有突出显示单元格的列的索引。
+     * @param visibleOnly - 如果为 true，则该方法仅返回可见列。
      */
     getSelectedColumns: (visibleOnly?: boolean) => number[];
 
     /**
-     * Get indexes of the rows that have highlighted cells.
-     * @param visibleOnly - If true, the method returns only visible rows.
+     * 获取具有突出显示单元格的行的索引。
+     * @param visibleOnly - 如果为 true，则该方法仅返回可见行。
      */
     getSelectedRows: (visibleOnly?: boolean) => number[];
 
     /**
-     * Get the coordinates of the range that is selected in the worksheet.
+     * 获取工作表中选定范围的坐标。
      */
     getSelection: () => [number, number, number, number];
 
     /**
-     * Get styles from one or all cells.
-     * @param cell - Name or coordinate of a cell. If omitted, returns styles for all cells.
-     * @param key - Style property. if specified, returns only that property. Otherwise, it returns all the cell's style properties.
+     * 从一个或所有单元格获取样式。
+     * @param cell - 单元格的名称或坐标。 如果省略，则返回所有单元格的样式。
+     * @param key - 样式属性。 如果指定，则仅返回该属性。 否则，它返回单元格的所有样式属性。
      */
     getStyle: (
       cell?: string | [number, number],
@@ -1855,20 +1870,17 @@ declare namespace jspreadsheet {
     ) => string | Record<string, string>;
 
     /**
-     * Get the value of a cell.
-     * @param cell - Cell name.
-     * @param processedValue - If true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link WorksheetOptions.data} property.
+     * 获取单元格的值。
+     * @param cell - 单元格名称。
+     * @param processedValue - 如果为 true，则返回单元格的 innerHTML。 否则，它返回 {@link WorksheetOptions.data} 属性中单元格的值。
      */
-    getValue: (
-      cell: string,
-      processedValue?: boolean
-    ) => CellValue | null;
+    getValue: (cell: string, processedValue?: boolean) => CellValue | null;
 
     /**
-     * Get the value of a cell by its coordinates.
-     * @param x - Column index.
-     * @param y - Row index.
-     * @param processedValue - If true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link WorksheetOptions.data} property.
+     * 按坐标获取单元格的值。
+     * @param x - 列索引。
+     * @param y - 行索引。
+     * @param processedValue - 如果为 true，则返回单元格的 innerHTML。 否则，它返回 {@link WorksheetOptions.data} 属性中单元格的值。
      */
     getValueFromCoords: (
       x: number,
@@ -1877,13 +1889,13 @@ declare namespace jspreadsheet {
     ) => CellValue | null;
 
     /**
-     * Get the width of one or all columns.
-     * @param column - Index of the column. If omitted, returns the widths of all columns.
+     * 获取一个或所有列的宽度。
+     * @param column - 列的索引。 如果省略，则返回所有列的宽度。
      */
     getWidth: (column?: number) => number | (number | string)[];
 
     /**
-     * Get the index of the currently active worksheet
+     * 获取当前活动工作表的索引
      */
     getWorksheetActive: () => number;
 
@@ -1893,71 +1905,71 @@ declare namespace jspreadsheet {
     hashString: null | number;
 
     /**
-     * HTML element that corresponds to the header row.
+     * 对应于标题行的 HTML 元素。
      */
     headerContainer: HTMLTableRowElement;
 
     /**
-     * List of cells that make up the header.
+     * 组成标题的单元格列表。
      */
     headers: HTMLTableCellElement[];
 
     /**
-     * Hide a column.
-     * @param colNumber - Column indexes.
+     * 隐藏列。
+     * @param colNumber - 列索引。
      */
     hideColumn: (colNumber: number | number[]) => void;
 
     /**
-     * Hide row count column.
+     * 隐藏行数列。
      */
     hideIndex: () => void;
 
     /**
-     * Hide Row.
-     * @param rowNumber - Row indexes.
+     * 隐藏行。
+     * @param rowNumber - 行索引。
      */
     hideRow: (rowNumber: number | number[]) => void;
 
     /**
-     * List of highlighted cells.
+     * 突出显示的单元格列表。
      */
     highlighted: {
-      element: HTMLTableCellElement,
-      x: number,
-      y: number,
+      element: HTMLTableCellElement;
+      x: number;
+      y: number;
     }[];
 
     /**
-     * List of actions performed on the worksheet.
+     * 在工作表上执行的操作列表。
      */
     history: HistoryRecord[];
 
     /**
-     * Current position of the {@link WorksheetInstance.history} property. Used to control movement through history.
+     * {@link WorksheetInstance.history} 属性的当前位置。 用于控制历史的运动。
      */
     historyIndex: number;
 
     /**
-     * If true, the "setHistory" method does not create new records in the history.
+     * 如果为 true，则“setHistory”方法不会在历史记录中创建新记录。
      */
     ignoreHistory: boolean;
 
     /**
-     * Check if a cell is within the current selection.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
+     * 检查单元格是否在当前选择中。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
      */
     isSelected: (x: number, y: number) => boolean;
 
     /**
-     * Insert one or more columns.
+     * 插入一个或多个列。
      *
-     * This method returns false if the {@link SpreadsheetOptions.onbeforeinsertcolumn} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
-     * @param mixed - Number of columns to insert. It can also be an array of values, but in this case, only one column is inserted, whose data is based on the array items. Default: 1.
-     * @param columnNumber - Index of the column used as reference for the insertion. Default: last column.
-     * @param insertBefore - Insert new columns before or after the reference column. Default: false.
-     * @param properties - New column properties.
+     * 如果 {@link SpreadsheetOptions.onbeforeinsertcolumn} 事件返回 false 或“此操作将破坏任何现有的合并单元格。您确定吗？”对话框收到否定响应。
+     * @param mixed - 要插入的列数。 它也可以是一个值数组，但在这种情况下，只插入一列，其数据基于数组项。 默认：1。
+     * @param columnNumber - 用作插入参考的列的索引。 默认：最后一列。
+     * @param insertBefore - 在参考列之前或之后插入新列。 默认：假。
+     * @param properties - 新列属性。
      */
     insertColumn: (
       mixed?: number | CellValue[],
@@ -1967,12 +1979,12 @@ declare namespace jspreadsheet {
     ) => false | undefined;
 
     /**
-     * Insert one or more rows.
+     * 插入一个或多个行。
      *
-     * This method returns false if the {@link SpreadsheetOptions.onbeforeinsertrow} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" dialogs receive a negative response.
-     * @param mixed - Number of rows to insert. It can also be an array of values, but in this case, only one row is inserted, whose data is based on the array items. Default: 1.
-     * @param rowNumber - Index of the row used as reference for the insertion. Default: last row.
-     * @param insertBefore - Insert new rows before or after the reference row. Default: false.
+     * 如果 {@link SpreadsheetOptions.onbeforeinsertrow} 事件返回 false 或“此操作将破坏任何现有的合并单元格。您确定吗？”或“此操作将清除您的搜索结果。您确定吗？”对话框收到否定响应。
+     * @param mixed - 要插入的行数。 它也可以是一个值数组，但在这种情况下，只插入一行，其数据基于数组项。 默认：1。
+     * @param rowNumber - 用作插入参考的行的索引。 默认：最后一行。
+     * @param insertBefore - 在参考行之前或之后插入新行。 默认：假。
      */
     insertRow: (
       mixed?: number | CellValue[],
@@ -1981,164 +1993,165 @@ declare namespace jspreadsheet {
     ) => false | undefined;
 
     /**
-     * Check if a cell is read only.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
+     * 检查单元格是否为只读。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
      */
     isReadOnly(x: number, y: number): boolean;
 
     /**
-     * Check if a cell is read only.
-     * @param cellName - Cell name.
+     * 检查单元格是否为只读。
+     * @param cellName - 单元格名称。
      */
     isReadOnly(cellName: string): boolean;
 
     /**
-     * Simulates the action of the End key.
-     * @param shiftKey - If true, the method simulates the action of the End key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the End key while the Ctrl key is pressed.
+     * 模拟 End 键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时 End 键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时 End 键的操作。
      */
     last: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Simulates the action of the "arrow left" key.
-     * @param shiftKey - If true, the method simulates the action of the "arrow left" key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the "arrow left" key while the Ctrl key is pressed.
+     * 模拟“向左箭头”键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时“向左箭头”键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时“向左箭头”键的操作。
      */
     left: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Move a column.
+     * 移动列。
      *
-     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
-     * @param o - Column index.
-     * @param d - New column index.
+     * 如果“此操作将破坏任何现有的合并单元格。您确定吗？”对话框收到否定响应。
+     * @param o - 列索引。
+     * @param d - 新列索引。
      */
     moveColumn: (o: number, d: number) => false | undefined;
 
     /**
-     * Move a row.
+     * 移动一行。
      *
-     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" dialogs receive a negative response.
-     * @param o - Row index.
-     * @param d - New row index.
+     * 如果“此操作将破坏任何现有的合并单元格。您确定吗？”或“此操作将清除您的搜索结果。您确定吗？”对话框收到否定响应。
+     * @param o - 行索引。
+     * @param d - 新行索引。
      */
     moveRow: (o: number, d: number) => false | undefined;
 
     /**
-     * Start the edition for one cell.
-     * @param cell - Cell HTML Element.
-     * @param empty - If true, the editor opens without content even if the cell had content.
-     * @param event - Js event that triggered the editor opening. This argument is passed to the "openEditor" method of custom editors.
+     * 开始编辑一个单元格。
+     * @param cell - 单元格 HTML 元素。
+     * @param empty - 如果为 true，即使单元格有内容，编辑器也会在没有内容的情况下打开。
+     * @param event - 触发编辑器打开的 Js 事件。 此参数传递给自定义编辑器的“openEditor”方法。
      */
-    openEditor: (cell: HTMLTableCellElement, empty?: boolean, event?: KeyboardEvent | MouseEvent | TouchEvent) => void;
+    openEditor: (
+      cell: HTMLTableCellElement,
+      empty?: boolean,
+      event?: KeyboardEvent | MouseEvent | TouchEvent
+    ) => void;
 
     /**
-     * Open the column filter.
+     * 打开列过滤器。
      *
-     * This method only runs if the {@link WorksheetOptions.filters} property is true.
-     * @param columnId - Column index.
+     * 仅当 {@link WorksheetOptions.filters} 属性为 true 时，此方法才会运行。
+     * @param columnId - 列索引。
      */
     openFilter: (columnId: number) => void;
 
     /**
-     * Open the worksheet by index.
-     * @param position - Worksheet index.
+     * 按索引打开工作表。
+     * @param position - 工作表索引。
      */
     openWorksheet: (position: number) => void;
 
     /**
-     * Spreadsheet settings.
+     * 电子表格设置。
      */
     options: WorksheetOptions;
 
     /**
-     * Reorder rows based on values in a column.
+     * 根据列中的值重新排序行。
      *
-     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response, or returns true if the sort is successful.
-     * @param column - Column index. If the value of this parameter is less than 0, the method returns false and does not perform sorting.
-     * @param order - Sorting direction. 0 for ascending and 1 for descending.
+     * 如果“此操作将破坏任何现有的合并单元格。您确定吗？”对话框收到否定响应，或返回 true 如果排序成功。
+     * @param column - 列索引。 如果此参数的值小于 0，则该方法返回 false 并且不执行排序。
+     * @param order - 排序方向。 0 表示升序，1 表示降序。
      */
     orderBy: (column: number, order: 0 | 1) => boolean | undefined;
 
     /**
-     * Go to page. Valid only when {@link WorksheetOptions.pagination} is true.
-     * @param pageNumber - Page number (starting at 0).
+     * 转到页面。 仅当 {@link WorksheetOptions.pagination} 为 true 时有效。
+     * @param pageNumber - 页码（从 0 开始）。
      */
     page: (pageNumber: number) => void;
 
     /**
-     * Current spreadsheet page.
+     * 当前电子表格页面。
      */
     pageNumber: undefined | number;
 
     /**
-     * Div with pagination controls.
+     * 带有分页控件的 Div。
      */
     pagination: HTMLDivElement;
 
     /**
-     * Spreadsheet of which this worksheet is part.
+     * 组成此工作表的电子表格。
      */
     parent: SpreadsheetInstance;
 
     /**
-     * Pastes content into one or more cells.
-     * @param x - Column index of the cell from which the content will be pasted.
-     * @param y - Row index of the cell from which the content will be pasted.
-     * @param data - Content to be pasted.
+     * 将内容粘贴到一个或多个单元格中。
+     * @param x - 粘贴内容的单元格的列索引。
+     * @param y - 粘贴内容的单元格的行索引。
+     * @param data - 要粘贴的内容。
      */
     paste: (x: number, y: number, data: string) => false | undefined;
 
     /**
-     * Get the number of pages of the worksheet.
+     * 获取工作表的页数。
      */
     quantiyOfPages: () => number;
 
     /**
-     * List of HTML elements representing table cells.
+     * 表示表格单元格的 HTML 元素列表。
      */
     records: {
-      element: HTMLTableCellElement[][],
-      x: number,
-      y: number,
+      element: HTMLTableCellElement[][];
+      x: number;
+      y: number;
     }[][];
 
     /**
-     * Redo previously undone action
+     * 重做先前撤消的操作
      */
     redo: () => void;
 
     /**
-     * Remove a merge.
-     * @param cellName - Merge anchor cell.
-     * @param data - Data to be placed in cells released from the merge.
+     * 删除合并。
+     * @param cellName - 合并锚单元格。
+     * @param data - 要放置在从合并中释放的单元格中的数据。
      */
-    removeMerge: (
-      cellName: string,
-      data?: CellValue[],
-    ) => void;
+    removeMerge: (cellName: string, data?: CellValue[]) => void;
 
     /**
-     * Reset all filters.
+     * 重置所有过滤器。
      */
     resetFilters: () => void;
 
     /**
-     * Reset search
+     * 重置搜索
      */
     resetSearch: () => void;
 
     /**
-     * Reset highlighted cell selection.
-     * @returns If there were highlighted cells, it returns 1, otherwise it returns 0.
+     * 重置突出显示的单元格选择。
+     * @returns 如果有突出显示的单元格，则返回 1，否则返回 0。
      */
     resetSelection: () => 0 | 1;
 
     /**
-     * Reset styles of one or more cells.
-     * @param o - Object whose keys are the names of the cells that must have their styles reset.
-     * @param ignoreHistoryAndEvents - If true, do not add this action to history.
+     * 重置一个或多个单元格的样式。
+     * @param o - 键是必须重置其样式的单元格名称的对象。
+     * @param ignoreHistoryAndEvents - 如果为 true，则不会将此操作添加到历史记录中。
      */
     resetStyle: (
       o: Record<string, any>,
@@ -2146,50 +2159,50 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Information about the row or column currently being resized.
+     * 有关当前调整大小的行或列的信息。
      */
     resizing: undefined | null | ResizeRowInfo | ResizeColumnInfo;
 
     /**
-     * Indices of the rows that include the searched text.
+     * 包含搜索文本的行的索引。
      */
     results: null | number[];
 
     /**
-     * Simulates the action of the "arrow right" key.
-     * @param shiftKey - If true, the method simulates the action of the "arrow right" key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the "arrow right" key while the Ctrl key is pressed.
+     * 模拟“向右箭头”键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时“向右箭头”键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时“向右箭头”键的操作。
      */
     right: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * List of rows that make up the table.
+     * 组成表格的行列表。
      */
     rows: {
-      element: HTMLTableRowElement,
-      y: number,
+      element: HTMLTableRowElement;
+      y: number;
     }[];
 
     /**
-     * Search for some text.
-     * @param query - Text to be searched.
+     * 搜索一些文本。
+     * @param query - 要搜索的文本。
      */
     search: (query: string) => void;
 
     /**
-     * Text field used to perform searches.
+     * 用于执行搜索的文本字段。
      */
     searchInput: HTMLInputElement;
 
     /**
-     * Select all table cells.
+     * 选择所有表格单元格。
      */
     selectAll: () => void;
 
     /**
-     * Current selection coordinates.
+     * 当前选择坐标。
      *
-     * The array is composed respectively by the indices of the leftmost column of the selection [0], the topmost row of the selection [1], the rightmost column of the selection [2] and the bottommost row selection [3].
+     * 该数组分别由选择的最左列的索引 [0]、选择的最上行的索引 [1]、选择的最右列的索引 [2] 和选择的最下行的索引 [3] 组成。
      */
     selectedCell:
       | undefined
@@ -2200,143 +2213,136 @@ declare namespace jspreadsheet {
     selectedContainer: undefined | null | [number, number, number, number];
 
     /**
-     * Cells that currently have "autocomplete selection".
+     * 当前具有“自动完成选择”的单元格。
      */
     selection: HTMLTableCellElement[];
 
     /**
-     * Set the data from one column by index.
-     * @param colNumber - Column index.
-     * @param data - New data. Positions with the null value are not changed in the table.
-     * @param force - If true, the method also changes the contents of readonly columns.
+     * 按索引设置一列的数据。
+     * @param colNumber - 列索引。
+     * @param data - 新数据。 值为 null 的位置不会在表中更改。
+     * @param force - 如果为 true，则该方法还会更改只读列的内容。
      */
-    setColumnData: (colNumber: number, data: (CellValue | null)[], force?: boolean) => void;
+    setColumnData: (
+      colNumber: number,
+      data: (CellValue | null)[],
+      force?: boolean
+    ) => void;
 
     /**
-     * Set or remove a comment.
-     * @param cellId - Name of the cell.
-     * @param comments - New comment. If it is a falsy value, the method just uncomments the cell.
+     * 设置或删除注释。
+     * @param cellId - 单元格的名称。
+     * @param comments - 新评论。 如果它是一个假值，该方法只会取消注释单元格。
      */
-    setComments(
-      cellId: string,
-      comments: string,
-    ): void;
+    setComments(cellId: string, comments: string): void;
 
     /**
-     * Set or remove comments.
-     * @param cellId - Object whose keys are cell names and values ​​are cell comments. If the value of a key is a falsy value, the cell comment is removed.
+     * 设置或删除注释。
+     * @param cellId - 键是单元格名称，值是单元格注释的对象。 如果键的值是一个假值，则删除单元格注释。
      */
-    setComments(
-      cellId: Record<string, string>,
-    ): void;
+    setComments(cellId: Record<string, string>): void;
 
     /**
-     * Change the worksheet or spreadsheet settings.
-     * @param config - New settings.
-     * @param spreadsheetLevel - If true, the settings are applied to the spreadsheet. If not, they are applied to the worksheet.
+     * 更改工作表或电子表格设置。
+     * @param config - 新设置。
+     * @param spreadsheetLevel - 如果为 true，则设置应用于电子表格。 如果没有，它们会应用于工作表。
      */
     setConfig: (config: SpreadsheetOptions, spreadsheetLevel?: boolean) => void;
 
     /**
-     * Set data.
-     * @param data - New data. It can be an array of cell values or an array of objects whose values are cell values.
+     * 设置数据。
+     * @param data - 新数据。 它可以是单元格值数组或值为单元格值的对象数组。
      */
-    setData: (
-      data?: CellValue[][] | Record<string, CellValue>[]
-    ) => void;
+    setData: (data?: CellValue[][] | Record<string, CellValue>[]) => void;
 
     /**
-     * Set a column title.
-     * @param column - Column index.
-     * @param newValue - New title. Empty string or undefined to reset the header title.
+     * 设置列标题。
+     * @param column - 列索引。
+     * @param newValue - 新标题。 空字符串或未定义以重置标题标题。
      */
     setHeader: (column: number, newValue?: string) => void;
 
     /**
-     * Change row height.
-     * @param row - Row index.
-     * @param height - New height. An integer greater than zero.
+     * 更改行高。
+     * @param row - 行索引。
+     * @param height - 新高度。 大于零的整数。
      */
-    setHeight: (
-      row: number,
-      height: number,
-    ) => void;
+    setHeight: (row: number, height: number) => void;
 
     /**
-     * Merge cells.
-     * @param cellName - Name of a cell. If it is a falsy value, this method merges the selected cells in the table and ignores all parameters of this method.
-     * @param colspan - Number of columns this merge occupies.
-     * @param rowspan - Number of rows this merge occupies.
-     * @returns If the "cellName" parameter is a falsy value, and there are no cells selected in the table, this method returns null.
+     * 合并单元格。
+     * @param cellName - 单元格的名称。 如果它是一个假值，此方法会合并表中选定的单元格并忽略此方法的所有参数。
+     * @param colspan - 此合并占用的列数。
+     * @param rowspan - 此合并占用的行数。
+     * @returns 如果“cellName”参数是一个假值，并且表中没有选定的单元格，则此方法返回 null。
      */
     setMerge: (
       cellName?: string,
       colspan?: number,
-      rowspan?: number,
+      rowspan?: number
     ) => null | undefined;
 
     /**
-     * Set a property on a cell's meta information.
-     * @param o - Cell name.
-     * @param k - Property name.
-     * @param v - Property value.
+     * 在单元格的元信息上设置一个属性。
+     * @param o - 单元格名称。
+     * @param k - 属性名称。
+     * @param v - 属性值。
      */
     setMeta(o: string, k: string, v: string): void;
 
     /**
-     * Remove current and define new meta information for one or more cells.
-     * @param o - Object with the new meta information.
+     * 删除当前并为一个或多个单元格定义新的元信息。
+     * @param o - 具有新元信息的对象。
      */
     setMeta(o: Record<string, Record<string, any>>): void;
 
     /**
-     * Change the read only state of a cell.
-     * @param cell - Cell HTML element or its name.
-     * @param state - New read only state.
+     * 更改单元格的只读状态。
+     * @param cell - 单元格 HTML 元素或其名称。
+     * @param state - 新的只读状态。
      */
     setReadOnly: (cell: string | HTMLTableCellElement, state: boolean) => void;
 
     /**
-     * Set a row data by index.
-     * @param rowNumber - Row index.
-     * @param data - New data. Positions with the null value are not changed in the table.
-     * @param force - If true, the method also changes the contents of readonly columns.
+     * 按索引设置一行的数据。
+     * @param rowNumber - 行索引。
+     * @param data - 新数据。 值为 null 的位置不会在表中更改。
+     * @param force - 如果为 true，则该方法还会更改只读列的内容。
      */
-    setRowData: (rowNumber: number, data: (CellValue | null)[], force?: boolean) => void;
+    setRowData: (
+      rowNumber: number,
+      data: (CellValue | null)[],
+      force?: boolean
+    ) => void;
 
     /**
-     * Change a single style of one or more cells.
-     * @param o - Name of a cell.
-     * @param k - property to be changed.
-     * @param v - New property value. If equal to the property's current value and the "force" parameter is false, removes that property from the style.
-     * @param force - If true, changes the value of the property even if the cell is read-only. Also, if true, even if the new value of the property is the same as the current one, the property is not removed.
+     * 更改一个或多个单元格的单个样式。
+     * @param o - 单元格的名称。
+     * @param k - 要更改的属性。
+     * @param v - 新的属性值。 如果等于属性的当前值并且“force”参数为 false，则从样式中删除该属性。
+     * @param force - 如果为 true，则即使单元格是只读的也会更改属性的值。 此外，如果为 true，即使属性的新值与当前值相同，也不会删除该属性。
      */
-    setStyle(
-      o: string,
-      k: string,
-      v: string,
-      force?: boolean,
-    ): void;
+    setStyle(o: string, k: string, v: string, force?: boolean): void;
 
     /**
-     * Change cell styles.
-     * @param o - Object where each key is the name of a cell and each value is the style changes for that cell. Each value can be a string with css styles separated by semicolons or an array where each item is a string with a css style.
-     * @param k - It is not used.
-     * @param v - It is not used.
-     * @param force - If true, changes the value of the property even if the cell is read-only. Also, if true, even if the new value of the property is the same as the current one, the property is not removed.
+     * 更改单元格样式。
+     * @param o - 每个键是单元格名称，每个值是该单元格样式更改的对象。 每个值可以是一个带有分号分隔的 css 样式的字符串，也可以是一个数组，其中每个项目都是一个带有 css 样式的字符串。
+     * @param k - 它没有被使用。
+     * @param v - 它没有被使用。
+     * @param force - 如果为 true，则即使单元格是只读的也会更改属性的值。 此外，如果为 true，即使属性的新值与当前值相同，也不会删除该属性。
      */
     setStyle(
       o: Record<string, string | string[]>,
       k?: null | undefined,
       v?: null | undefined,
-      force?: boolean,
+      force?: boolean
     ): void;
 
     /**
-     * Change the value of one or more cells.
-     * @param cell - Name of a cell, HTML element that represents a cell or an array whose items can be any of the previous alternatives or objects. When an array item is an object, it must have the cell coordinates ("x" and "y") and can have the cell's new value ("value"), but if does not have it, the "value" parameter is used instead.
-     * @param value - New cell value.
-     * @param force - If true, changes the value of even read-only cells.
+     * 更改一个或多个单元格的值。
+     * @param cell - 单元格的名称、表示单元格的 HTML 元素或其项目可以是前面任何替代项或对象的数组。 当数组项是一个对象时，它必须具有单元格坐标（“x”和“y”），并且可以具有单元格的新值（“value”），但如果没有，则使用“value”参数。
+     * @param value - 新的单元格值。
+     * @param force - 如果为 true，则更改只读单元格的值。
      */
     setValue: (
       cell:
@@ -2352,11 +2358,11 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Set a cell value based on its coordinates.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param value - New value.
-     * @param force - If true, changes the value of even read-only cells.
+     * 根据其坐标设置单元格值。
+     * @param x - 单元格列索引。
+     * @param y - 单元格行索引。
+     * @param value - 新值。
+     * @param force - 如果为 true，则更改只读单元格的值。
      */
     setValueFromCoords: (
       x: number,
@@ -2366,93 +2372,90 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Set the width of a column.
-     * @param column - Column index.
-     * @param width - New width.
+     * 设置列的宽度。
+     * @param column - 列索引。
+     * @param width - 新宽度。
      */
     setWidth(column: number, width: number): void;
 
     /**
-     * Set the width of one or more columns.
-     * @param column - Column indexes.
-     * @param width - New widths.
+     * 设置一个或多个列的宽度。
+     * @param column - 列索引。
+     * @param width - 新宽度。
      */
-    setWidth(
-      column: number[],
-      width: number | number[],
-    ): void;
+    setWidth(column: number[], width: number | number[]): void;
 
     /**
-     * Show hidden column.
-     * @param colNumber - Column index.
+     * 显示隐藏列。
+     * @param colNumber - 列索引。
      */
     showColumn: (colNumber: number | number[]) => void;
 
     /**
-     * Show row count column.
+     * 显示行数列。
      */
     showIndex: () => void;
 
     /**
-     * Show hidden row.
-     * @param rowNumber - Row index.
+     * 显示隐藏行。
+     * @param rowNumber - 行索引。
      */
     showRow: (rowNumber: number | number[]) => void;
 
     /**
-     * Styles of the cells that were copied.
+     * 复制的单元格样式。
      */
     style: string[];
 
     /**
-     * HTML table tag of this jss instance.
+     * 此 jss 实例的 HTML 表标签。
      */
     table: HTMLTableElement;
 
     /**
-     * HTML tbody tag of this jss instance.
+     * 此 jss 实例的 HTML tbody 标签。
      */
     tbody: HTMLTableSectionElement;
 
     /**
-     * HTML textarea tag used internally when copying cells.
+     * 复制单元格时内部使用的 HTML textarea 标签。
      */
     textarea: HTMLTextAreaElement;
 
     /**
-     * HTML thead tag of this jss instance.
+     * 此 jss 实例的 HTML thead 标签。
      */
     thead: HTMLTableSectionElement;
 
     /**
-     * Undo last action.
+     * 撤消上一个操作。
      */
     undo: () => void;
 
     /**
-     * Simulates the action of the "arrow up" key.
-     * @param shiftKey - If true, the method simulates the action of the "arrow up" key while the Shift key is pressed.
-     * @param ctrlKey - If true, the method simulates the action of the "arrow up" key while the Ctrl key is pressed.
+     * 模拟“向上箭头”键的操作。
+     * @param shiftKey - 如果为 true，则该方法模拟按下 Shift 键时“向上箭头”键的操作。
+     * @param ctrlKey - 如果为 true，则该方法模拟按下 Ctrl 键时“向上箭头”键的操作。
      */
     up: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Select cells.
-     * @param x1 - Column index of the first cell of the selection. If omitted or null, rows "y1" through "y2" are selected.
-     * @param y1 - Row index of the first cell of the selection. If omitted or null, columns "x1" through "x2" are selected.
-     * @param x2 - Column index of the last cell of the selection. Default: Parameter "x1".
-     * @param y2 - Row index of the last cell of the selection. Default: Parameter "y1".
+     * 选择单元格。
+     * @param x1 - 选择的第一个单元格的列索引。 如果省略或为 null，则选择“y1”到“y2”行。
+     * @param y1 - 选择的第一个单元格的行索引。 如果省略或为 null，则选择“x1”到“x2”列。
+     * @param x2 - 选择的最后一个单元格的列索引。 默认：参数“x1”。
+     * @param y2 - 选择的最后一个单元格的行索引。 默认：参数“y1”。
      */
     updateSelectionFromCoords: (
       x1: number | null,
       y1: number | null,
       x2?: number | null,
-      y2?: number | null,
+      y2?: number | null
     ) => false | undefined;
 
     /**
-     * Get the page index of a row.
-     * @param cell - Row index.
+     * 获取行的页码。
+     * @param cell - 行索引。
      */
     whichPage: (cell: number) => number;
   }
@@ -2467,56 +2470,57 @@ declare namespace jspreadsheet {
 
   interface JssHelpers {
     /**
-     * Extract the configuration to create a new spreadsheet from a static HTML element.
-     * @param element - Table element.
-     * @param options - Worksheet options.
+     * 从静态 HTML 元素中提取创建新电子表格的配置。
+     * @param element - 表格元素。
+     * @param options - 工作表选项。
      */
-    createFromTable: (element: HTMLTableElement, options: WorksheetOptions) => WorksheetOptions;
+    createFromTable: (
+      element: HTMLTableElement,
+      options: WorksheetOptions
+    ) => WorksheetOptions;
 
     /**
-     * Internal method.
+     * 内部方法。
      */
     getCaretIndex: (e: any) => number;
 
     /**
-     * Get the column letter(s) based on its index.
-     * @param i - Column index.
+     * 根据索引获取列字母。
+     * @param i - 列索引。
      */
     getColumnName: (i: number) => string;
 
     /**
-     * Get "A1" style coordinates based on column and row indices.
-     * @param x - Column index.
-     * @param y - Row index.
+     * 根据列和行索引获取“A1”样式坐标。
+     * @param x - 列索引。
+     * @param y - 行索引。
      */
     getCellNameFromCoords: (x: number, y: number) => string;
 
     /**
-     * Get column and row indices based on coordinate in "A1" style.
-     * @param columnName - Coordinate in "A1" style.
+     * 根据“A1”样式的坐标获取列和行索引。
+     * @param columnName - “A1”样式的坐标。
      */
     getCoordsFromCellName: (
       columnName: string
     ) => [number, number | null] | undefined;
 
     /**
-     * Get coordinates from a range.
-     * @param range - Range in "A1:B2" style.
-     * @returns Array filled with the x and y coordinates of the first and last cells in the range.
+     * 从范围获取坐标。
+     * @param range - “A1:B2”样式的范围。
+     * @returns 数组填充范围内第一个和最后一个单元格的 x 和 y 坐标。
      */
-    getCoordsFromRange: (
-      range: string
-    ) => [number, number, number, number];
+    getCoordsFromRange: (range: string) => [number, number, number, number];
 
     /**
-     * Internal method.
+     * 内部方法。
      */
     invert: (o: object) => any[] & Record<string, any>;
 
     /**
-     * Parse CSV string to JS array.
-     * @param str - Text in csv format.
-     * @param delimiter - Csv delimiter.
+     * 将 CSV 字符串解析为 JS 数组。
+     * @param str - csv 格式的文本。
+     * @param delimiter - Csv 分隔符。
      */
     parseCSV: (str: string, delimiter?: string) => string[][];
   }
@@ -2528,14 +2532,14 @@ declare namespace jspreadsheet {
     ): WorksheetInstance[];
 
     /**
-     * Current instance of jss.
+     * jss 的当前实例。
      */
     current: null | WorksheetInstance;
 
     /**
-     * Destroy an instance of jss.
-     * @param element - Root element of jss instance.
-     * @param destroyEventHandlers - Remove event listeners. Default: false.
+     * 销毁 jss 的实例。
+     * @param element - jss 实例的根元素。
+     * @param destroyEventHandlers - 删除事件监听器。 默认：假。
      */
     destroy: (
       element: JspreadsheetInstanceElement,
@@ -2543,44 +2547,47 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * Destroy all instances of jss.
+     * 销毁所有 jss 实例。
      */
     destroyAll: () => void;
 
     /**
-     * Get a worksheet instance by name and namespace.
-     * @param worksheetName - Name of the searched worksheet. If null or undefined, the method returns the found namespace.
-     * @param namespace - Namespace name.
+     * 按名称和命名空间获取工作表实例。
+     * @param worksheetName - 搜索的工作表的名称。 如果为 null 或 undefined，则该方法返回找到的命名空间。
+     * @param namespace - 命名空间名称。
      */
-    getWorksheetInstanceByName: (worksheetName: string | null | undefined, namespace: string) => WorksheetInstance | Record<string, WorksheetInstance>;
+    getWorksheetInstanceByName: (
+      worksheetName: string | null | undefined,
+      namespace: string
+    ) => WorksheetInstance | Record<string, WorksheetInstance>;
 
     helpers: JssHelpers;
 
     /**
-     * Internal method.
+     * 内部方法。
      */
     isMouseAction: boolean;
 
     /**
-     * Defines translations.
-     * @param o - Translations.
+     * 定义翻译。
+     * @param o - 翻译。
      */
     setDictionary: (o: Record<string, string>) => void;
 
     spreadsheet: SpreadsheetInstance[];
 
     /**
-     * Internal method.
+     * 内部方法。
      */
     timeControl: null | number;
 
     /**
-     * Internal method.
+     * 内部方法。
      */
     timeControlLoading: null | number;
 
     /**
-     * Basic version information.
+     * 基本版本信息。
      */
     version: Version;
 
