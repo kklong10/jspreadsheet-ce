@@ -20,6 +20,7 @@ import { getComments, setComments } from './comments.js';
 import { orderBy } from './orderBy.js';
 import { getWorksheetConfig, setConfig } from './config.js';
 import { getMeta, setMeta } from './meta.js';
+import { getCellRender, setCellRender, getCellRenderFromCoords, setCellRenderFromCoords } from './cellRender.js';
 import { closeEditor, openEditor } from './editor.js';
 import dispatch from './dispatch.js';
 import { getIdFromColumnName } from './internalHelpers.js';
@@ -28,7 +29,7 @@ import { isReadOnly, setReadOnly } from './cells.js';
 import { openFilter, resetFilters } from './filter.js';
 import { redo, undo } from './history.js';
 
-const setWorksheetFunctions = function(worksheet) {
+const setWorksheetFunctions = function (worksheet) {
     for (let i = 0; i < worksheetPublicMethodsLength; i++) {
         const [methodName, method] = worksheetPublicMethods[i];
 
@@ -36,7 +37,7 @@ const setWorksheetFunctions = function(worksheet) {
     }
 }
 
-const createTable = function() {
+const createTable = function () {
     let obj = this;
 
     setWorksheetFunctions(obj);
@@ -53,10 +54,10 @@ const createTable = function() {
     // Create table container
     obj.content = document.createElement('div');
     obj.content.classList.add('jss_content');
-    obj.content.onscroll = function(e) {
+    obj.content.onscroll = function (e) {
         scrollControls.call(obj, e);
     }
-    obj.content.onwheel = function(e) {
+    obj.content.onwheel = function (e) {
         wheelControls.call(obj, e);
     }
 
@@ -70,7 +71,7 @@ const createTable = function() {
     obj.searchInput = document.createElement('input');
     obj.searchInput.classList.add('jss_search');
     searchLabel.appendChild(obj.searchInput);
-    obj.searchInput.onfocus = function() {
+    obj.searchInput.onfocus = function () {
         obj.resetSelection();
     }
 
@@ -80,7 +81,7 @@ const createTable = function() {
     if (obj.options.pagination > 0 && obj.options.paginationOptions && obj.options.paginationOptions.length > 0) {
         obj.paginationDropdown = document.createElement('select');
         obj.paginationDropdown.classList.add('jss_pagination_dropdown');
-        obj.paginationDropdown.onchange = function() {
+        obj.paginationDropdown.onchange = function () {
             obj.options.pagination = parseInt(this.value);
             obj.page(0);
         }
@@ -173,7 +174,7 @@ const createTable = function() {
     obj.table.appendChild(obj.thead);
     obj.table.appendChild(obj.tbody);
 
-    if (! obj.options.textOverflow) {
+    if (!obj.options.textOverflow) {
         obj.table.classList.add('jss_overflow');
     }
 
@@ -218,7 +219,7 @@ const createTable = function() {
     obj.pagination.appendChild(paginationPages);
 
     // Hide pagination if not in use
-    if (! obj.options.pagination) {
+    if (!obj.options.pagination) {
         obj.pagination.style.display = 'none';
     }
 
@@ -286,9 +287,9 @@ const createTable = function() {
         enumerable: true,
         configurable: true,
         get() {
-          return obj.getStyle();
+            return obj.getStyle();
         },
-      });
+    });
 
     if (obj.options.comments) {
         obj.setComments(obj.options.comments);
@@ -309,7 +310,7 @@ const createTable = function() {
  *
  * @Param config
  */
-const prepareTable = function() {
+const prepareTable = function () {
     const obj = this;
 
     // Lazy loading
@@ -326,7 +327,7 @@ const prepareTable = function() {
     let size = obj.options.columns.length;
     let keys;
 
-    if (obj.options.data && typeof(obj.options.data[0]) !== 'undefined') {
+    if (obj.options.data && typeof (obj.options.data[0]) !== 'undefined') {
         if (!Array.isArray(obj.options.data[0])) {
             // Data keys
             keys = Object.keys(obj.options.data[0]);
@@ -358,10 +359,10 @@ const prepareTable = function() {
     // Preparations
     for (let i = 0; i < size; i++) {
         // Default column description
-        if (! obj.options.columns[i]) {
+        if (!obj.options.columns[i]) {
             obj.options.columns[i] = {};
         }
-        if (! obj.options.columns[i].name && keys && keys[i]) {
+        if (!obj.options.columns[i].name && keys && keys[i]) {
             obj.options.columns[i].name = keys[i];
         }
 
@@ -374,7 +375,7 @@ const prepareTable = function() {
                     index: i,
                     method: 'GET',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         if (!obj.options.columns[this.index].source) {
                             obj.options.columns[this.index].source = [];
                         }
@@ -389,21 +390,21 @@ const prepareTable = function() {
     }
 
     // Create the table when is ready
-    if (! multiple.length) {
+    if (!multiple.length) {
         createTable.call(obj);
     } else {
-        jSuites.ajax(multiple, function() {
+        jSuites.ajax(multiple, function () {
             createTable.call(obj);
         });
     }
 }
 
-export const getNextDefaultWorksheetName = function(spreadsheet) {
+export const getNextDefaultWorksheetName = function (spreadsheet) {
     const defaultWorksheetNameRegex = /^Sheet(\d+)$/;
 
     let largestWorksheetNumber = 0;
 
-    spreadsheet.worksheets.forEach(function(worksheet) {
+    spreadsheet.worksheets.forEach(function (worksheet) {
         const regexResult = defaultWorksheetNameRegex.exec(worksheet.options.worksheetName);
         if (regexResult) {
             largestWorksheetNumber = Math.max(largestWorksheetNumber, parseInt(regexResult[1]));
@@ -413,14 +414,14 @@ export const getNextDefaultWorksheetName = function(spreadsheet) {
     return 'Sheet' + (largestWorksheetNumber + 1);
 }
 
-export const buildWorksheet = async function() {
+export const buildWorksheet = async function () {
     const obj = this;
     const el = obj.element;
 
     const spreadsheet = obj.parent;
 
     if (typeof spreadsheet.plugins === 'object') {
-        Object.entries(spreadsheet.plugins).forEach(function([, plugin]) {
+        Object.entries(spreadsheet.plugins).forEach(function ([, plugin]) {
             if (typeof plugin.beforeinit === 'function') {
                 plugin.beforeinit(obj);
             }
@@ -439,7 +440,7 @@ export const buildWorksheet = async function() {
                 url: obj.options.csv,
                 method: 'GET',
                 dataType: 'text',
-                success: function(result) {
+                success: function (result) {
                     // Convert data
                     const newData = parseCSV(result, obj.options.csvDelimiter)
 
@@ -452,8 +453,8 @@ export const buildWorksheet = async function() {
                                 obj.options.columns = [];
                             }
 
-                            for(let i = 0; i < headers.length; i++) {
-                                if (! obj.options.columns[i]) {
+                            for (let i = 0; i < headers.length; i++) {
+                                if (!obj.options.columns[i]) {
                                     obj.options.columns[i] = {};
                                 }
                                 // Precedence over pre-configurated titles
@@ -480,7 +481,7 @@ export const buildWorksheet = async function() {
                 url: obj.options.url,
                 method: 'GET',
                 dataType: 'json',
-                success: function(result) {
+                success: function (result) {
                     // Data
                     obj.options.data = (result.data) ? result.data : result;
                     // Prepare table
@@ -500,7 +501,7 @@ export const buildWorksheet = async function() {
     await Promise.all(promises);
 
     if (typeof spreadsheet.plugins === 'object') {
-        Object.entries(spreadsheet.plugins).forEach(function([, plugin]) {
+        Object.entries(spreadsheet.plugins).forEach(function ([, plugin]) {
             if (typeof plugin.init === 'function') {
                 plugin.init(obj);
             }
@@ -508,7 +509,7 @@ export const buildWorksheet = async function() {
     }
 }
 
-export const createWorksheetObj = function(options) {
+export const createWorksheetObj = function (options) {
     const obj = this;
 
     const spreadsheet = obj.parent;
@@ -533,7 +534,7 @@ export const createWorksheetObj = function(options) {
     return newWorksheet;
 }
 
-export const createWorksheet = function(options) {
+export const createWorksheet = function (options) {
     const obj = this;
     const spreadsheet = obj.parent;
 
@@ -544,14 +545,14 @@ export const createWorksheet = function(options) {
     spreadsheet.element.tabs.create(options.worksheetName);
 }
 
-export const openWorksheet = function(position) {
+export const openWorksheet = function (position) {
     const obj = this;
     const spreadsheet = obj.parent;
 
     spreadsheet.element.tabs.open(position);
 }
 
-export const deleteWorksheet = function(position) {
+export const deleteWorksheet = function (position) {
     const obj = this;
 
     obj.parent.element.tabs.remove(position);
@@ -563,10 +564,10 @@ export const deleteWorksheet = function(position) {
 
 const worksheetPublicMethods = [
     ['selectAll', selectAll],
-    ['updateSelectionFromCoords', function(x1, y1, x2, y2) {
+    ['updateSelectionFromCoords', function (x1, y1, x2, y2) {
         return updateSelectionFromCoords.call(this, x1, y1, x2, y2);
     }],
-    ['resetSelection', function() {
+    ['resetSelection', function () {
         return resetSelection.call(this);
     }],
     ['getSelection', getSelection],
@@ -580,11 +581,11 @@ const worksheetPublicMethods = [
     ['setValue', setValue],
     ['setValueFromCoords', setValueFromCoords],
     ['getWidth', getWidth],
-    ['setWidth', function(column, width) {
+    ['setWidth', function (column, width) {
         return setWidth.call(this, column, width);
     }],
     ['insertRow', insertRow],
-    ['moveRow', function(rowNumber, newPositionNumber) {
+    ['moveRow', function (rowNumber, newPositionNumber) {
         return moveRow.call(this, rowNumber, newPositionNumber);
     }],
     ['deleteRow', deleteRow],
@@ -593,17 +594,17 @@ const worksheetPublicMethods = [
     ['getRowData', getRowData],
     ['setRowData', setRowData],
     ['getHeight', getHeight],
-    ['setHeight', function(row, height) {
+    ['setHeight', function (row, height) {
         return setHeight.call(this, row, height);
     }],
     ['getMerge', getMerge],
-    ['setMerge', function(cellName, colspan, rowspan) {
+    ['setMerge', function (cellName, colspan, rowspan) {
         return setMerge.call(this, cellName, colspan, rowspan);
     }],
-    ['destroyMerge', function() {
+    ['destroyMerge', function () {
         return destroyMerge.call(this);
     }],
-    ['removeMerge', function(cellName, data) {
+    ['removeMerge', function (cellName, data) {
         return removeMerge.call(this, cellName, data);
     }],
     ['search', search],
@@ -612,7 +613,7 @@ const worksheetPublicMethods = [
     ['getHeaders', getHeaders],
     ['setHeader', setHeader],
     ['getStyle', getStyle],
-    ['setStyle', function(cell, property, value, forceOverwrite) {
+    ['setStyle', function (cell, property, value, forceOverwrite) {
         return setStyle.call(this, cell, property, value, forceOverwrite);
     }],
     ['resetStyle', resetStyle],
@@ -634,10 +635,18 @@ const worksheetPublicMethods = [
     ['getLabel', getLabel],
     ['getConfig', getWorksheetConfig],
     ['setConfig', setConfig],
-    ['getMeta', function(cell) {
+    ['getMeta', function (cell) {
         return getMeta.call(this, cell);
     }],
     ['setMeta', setMeta],
+    ['getCellRender', function (cellName) {
+        return getCellRender.call(this, cellName);
+    }],
+    ['getCellRenderFromCoords', function (x, y) {
+        return getCellRenderFromCoords.call(this, x, y);
+    }],
+    ['setCellRender', setCellRender],
+    ['setCellRenderFromCoords', setCellRenderFromCoords],
     ['showColumn', showColumn],
     ['hideColumn', hideColumn],
     ['showIndex', showIndex],
@@ -648,7 +657,7 @@ const worksheetPublicMethods = [
     ['createWorksheet', createWorksheet],
     ['openWorksheet', openWorksheet],
     ['deleteWorksheet', deleteWorksheet],
-    ['copy', function(cut) {
+    ['copy', function (cut) {
         if (cut) {
             cutControls();
         } else {

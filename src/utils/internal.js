@@ -10,7 +10,7 @@ import { updatePagination } from "./pagination.js";
 import { setFooter } from "./footer.js";
 import { getColumnNameFromId, getIdFromColumnName } from "./internalHelpers.js";
 
-export const updateTable = function() {
+export const updateTable = function () {
     const obj = this;
 
     // Check for spare
@@ -37,7 +37,7 @@ export const updateTable = function() {
 
     if (obj.options.minSpareCols > 0) {
         let numBlankCols = 0;
-        for (let i = obj.headers.length - 1; i >= 0 ; i--) {
+        for (let i = obj.headers.length - 1; i >= 0; i--) {
             let test = false;
             for (let j = 0; j < obj.rows.length; j++) {
                 if (obj.options.data[j][i]) {
@@ -62,15 +62,15 @@ export const updateTable = function() {
     }
 
     // Update corner position
-    setTimeout(function() {
+    setTimeout(function () {
         updateCornerPosition.call(obj);
-    },0);
+    }, 0);
 }
 
 /**
  * Trying to extract a number from a string
  */
-const parseNumber = function(value, columnNumber) {
+const parseNumber = function (value, columnNumber) {
     const obj = this;
 
     // Decimal point
@@ -89,7 +89,7 @@ const parseNumber = function(value, columnNumber) {
 
     // Is a valid number
     if (number[0] && Number.isInteger(Number(number[0]))) {
-        if (! number[1]) {
+        if (!number[1]) {
             value = Number(number[0] + '.00');
         } else {
             value = Number(number[0] + '.' + number[1]);
@@ -104,15 +104,15 @@ const parseNumber = function(value, columnNumber) {
 /**
  * Parse formulas
  */
-export const executeFormula = function(expression, x, y) {
+export const executeFormula = function (expression, x, y) {
     const obj = this;
 
     const formulaResults = [];
     const formulaLoopProtection = [];
 
     // Execute formula with loop protection
-    const execute = function(expression, x, y) {
-     // Parent column identification
+    const execute = function (expression, x, y) {
+        // Parent column identification
         const parentId = getColumnNameFromId([x, y]);
 
         // Code protection
@@ -124,7 +124,7 @@ export const executeFormula = function(expression, x, y) {
         formulaLoopProtection[parentId] = true;
 
         // Convert range tokens
-        const tokensUpdate = function(tokens) {
+        const tokensUpdate = function (tokens) {
             for (let index = 0; index < tokens.length; index++) {
                 const f = [];
                 const token = tokens[index].split(':');
@@ -183,7 +183,7 @@ export const executeFormula = function(expression, x, y) {
             if (tokens) {
                 for (let i = 0; i < tokens.length; i++) {
                     // Keep chain
-                    if (! obj.formula[tokens[i]]) {
+                    if (!obj.formula[tokens[i]]) {
                         obj.formula[tokens[i]] = [];
                     }
                     // Is already in the register
@@ -198,13 +198,13 @@ export const executeFormula = function(expression, x, y) {
                         // Get value
                         let value;
 
-                        if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
+                        if (typeof (obj.options.data[position[1]]) != 'undefined' && typeof (obj.options.data[position[1]][position[0]]) != 'undefined') {
                             value = obj.options.data[position[1]][position[0]];
                         } else {
                             value = '';
                         }
                         // Get column data
-                        if ((''+value).substr(0,1) == '=') {
+                        if (('' + value).substr(0, 1) == '=') {
                             if (typeof formulaResults[tokens[i]] !== 'undefined') {
                                 value = formulaResults[tokens[i]];
                             } else {
@@ -213,7 +213,7 @@ export const executeFormula = function(expression, x, y) {
                             }
                         }
                         // Type!
-                        if ((''+value).trim() == '') {
+                        if (('' + value).trim() == '') {
                             // Null
                             formulaExpressions[tokens[i]] = null;
                         } else {
@@ -265,16 +265,16 @@ export const executeFormula = function(expression, x, y) {
     return execute(expression, x, y);
 }
 
-export const parseValue = function(i, j, value, cell) {
+export const parseValue = function (i, j, value, cell) {
     const obj = this;
 
-    if ((''+value).substr(0,1) == '=' && obj.parent.config.parseFormulas != false) {
+    if (('' + value).substr(0, 1) == '=' && obj.parent.config.parseFormulas != false) {
         value = executeFormula.call(obj, value, i, j)
     }
 
     // Column options
     const options = obj.options.columns && obj.options.columns[i];
-    if (options && ! isFormula(value)) {
+    if (options && !isFormula(value)) {
         // Mask options
         let opt = null;
         if (opt = getMask(options)) {
@@ -318,7 +318,7 @@ export const parseValue = function(i, j, value, cell) {
 /**
  * Get dropdown value from key
  */
-const getDropDownValue = function(column, key) {
+const getDropDownValue = function (column, key) {
     const obj = this;
 
     const value = [];
@@ -329,7 +329,7 @@ const getDropDownValue = function(column, key) {
         const source = obj.options.columns[column].source;
 
         for (let i = 0; i < source.length; i++) {
-            if (typeof(source[i]) == 'object') {
+            if (typeof (source[i]) == 'object') {
                 combo[source[i].id] = source[i].name;
             } else {
                 combo[source[i]] = source[i];
@@ -340,7 +340,7 @@ const getDropDownValue = function(column, key) {
         const keys = Array.isArray(key) ? key : ('' + key).split(';');
 
         for (let i = 0; i < keys.length; i++) {
-            if (typeof(keys[i]) === 'object') {
+            if (typeof (keys[i]) === 'object') {
                 value.push(combo[keys[i].id]);
             } else {
                 if (combo[keys[i]]) {
@@ -355,9 +355,9 @@ const getDropDownValue = function(column, key) {
     return (value.length > 0) ? value.join('; ') : '';
 }
 
-const validDate = function(date) {
-    date = ''+date;
-    if (date.substr(4,1) == '-' && date.substr(7,1) == '-') {
+const validDate = function (date) {
+    date = '' + date;
+    if (date.substr(4, 1) == '-' && date.substr(7, 1) == '-') {
         return true;
     } else {
         date = date.split('-');
@@ -371,15 +371,15 @@ const validDate = function(date) {
 /**
  * Strip tags
  */
-const stripScript = function(a) {
+const stripScript = function (a) {
     const b = new Option;
     b.innerHTML = a;
     let c = null;
-    for (a = b.getElementsByTagName('script'); c=a[0];) c.parentNode.removeChild(c);
+    for (a = b.getElementsByTagName('script'); c = a[0];) c.parentNode.removeChild(c);
     return b.innerHTML;
 }
 
-export const createCell = function(i, j, value) {
+export const createCell = function (i, j, value) {
     const obj = this;
 
     // Create cell and properties
@@ -387,11 +387,11 @@ export const createCell = function(i, j, value) {
     td.setAttribute('data-x', i);
     td.setAttribute('data-y', j);
 
-    if( obj.headers[i].style.display === 'none' ){
+    if (obj.headers[i].style.display === 'none') {
         td.style.display = 'none';
     }
     // Security
-    if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+    if (('' + value).substr(0, 1) == '=' && obj.options.secureFormulas == true) {
         const val = secureFormula(value);
         if (val != value) {
             // Update the data container
@@ -406,7 +406,7 @@ export const createCell = function(i, j, value) {
         } else {
             td.textContent = value;
         }
-        if (typeof(obj.options.columns[i].type.createCell) == 'function') {
+        if (typeof (obj.options.columns[i].type.createCell) == 'function') {
             obj.options.columns[i].type.createCell(td, value, parseInt(i), parseInt(j), obj, obj.options.columns[i]);
         }
     } else {
@@ -420,7 +420,7 @@ export const createCell = function(i, j, value) {
             element.type = obj.options.columns[i].type;
             element.name = 'c' + i;
             element.checked = (value == 1 || value == true || value == 'true') ? true : false;
-            element.onclick = function() {
+            element.onclick = function () {
                 obj.setValue(td, this.checked);
             }
 
@@ -435,7 +435,7 @@ export const createCell = function(i, j, value) {
         } else if (obj.options.columns && obj.options.columns[i] && obj.options.columns[i].type == 'calendar') {
             // Try formatted date
             let formatted = null;
-            if (! validDate(value)) {
+            if (!validDate(value)) {
                 const tmp = jSuites.calendar.extractDateFromString(value, (obj.options.columns[i].options && obj.options.columns[i].options.format) || 'YYYY-MM-DD');
                 if (tmp) {
                     formatted = tmp;
@@ -494,7 +494,7 @@ export const createCell = function(i, j, value) {
     if (i > 0) {
         if (this.options.textOverflow == true) {
             if (value || td.innerHTML) {
-                obj.records[j][i-1].element.style.overflow = 'hidden';
+                obj.records[j][i - 1].element.style.overflow = 'hidden';
             } else {
                 if (i == obj.options.columns.length - 1) {
                     td.style.overflow = 'hidden';
@@ -514,13 +514,13 @@ export const createCell = function(i, j, value) {
  * @param object cell
  * @return void
  */
-export const updateCell = function(x, y, value, force) {
+export const updateCell = function (x, y, value, force) {
     const obj = this;
 
     let record;
 
     // Changing value depending on the column type
-    if (obj.records[y][x].element.classList.contains('readonly') == true && ! force) {
+    if (obj.records[y][x].element.classList.contains('readonly') == true && !force) {
         // Do nothing
         record = {
             x: x,
@@ -530,7 +530,7 @@ export const updateCell = function(x, y, value, force) {
         }
     } else {
         // Security
-        if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+        if (('' + value).substr(0, 1) == '=' && obj.options.secureFormulas == true) {
             const val = secureFormula(value);
             if (val != value) {
                 // Update the data container
@@ -568,7 +568,7 @@ export const updateCell = function(x, y, value, force) {
         if (editor) {
             // Update data and cell
             obj.options.data[y][x] = value;
-            if (typeof(editor.setValue) === 'function') {
+            if (typeof (editor.setValue) === 'function') {
                 editor.setValue(obj.records[y][x].element, value);
             }
         } else {
@@ -591,7 +591,7 @@ export const updateCell = function(x, y, value, force) {
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'calendar') {
                 // Try formatted date
                 let formatted = null;
-                if (! validDate(value)) {
+                if (!validDate(value)) {
                     const tmp = jSuites.calendar.extractDateFromString(value, (obj.options.columns[x].options && obj.options.columns[x].options.format) || 'YYYY-MM-DD');
                     if (tmp) {
                         formatted = tmp;
@@ -615,7 +615,7 @@ export const updateCell = function(x, y, value, force) {
                     obj.records[y][x].element.textContent = value;
                 }
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'image') {
-                value = ''+value;
+                value = '' + value;
                 obj.options.data[y][x] = value;
                 obj.records[y][x].element.innerHTML = '';
                 if (value && value.substr(0, 10) == 'data:image') {
@@ -648,13 +648,22 @@ export const updateCell = function(x, y, value, force) {
         // Overflow
         if (x > 0) {
             if (value) {
-                obj.records[y][x-1].element.style.overflow = 'hidden';
+                obj.records[y][x - 1].element.style.overflow = 'hidden';
             } else {
-                obj.records[y][x-1].element.style.overflow = '';
+                obj.records[y][x - 1].element.style.overflow = '';
             }
         }
 
-        if (obj.options.columns && obj.options.columns[x] && typeof obj.options.columns[x].render === 'function') {
+        if (obj.options.render && obj.options.render[x] && typeof obj.options.render[x][y] === 'function') {
+            obj.options.render[x][y](
+                obj.records[y] && obj.records[y][x] ? obj.records[y][x].element : null,
+                value,
+                parseInt(x),
+                parseInt(y),
+                obj,
+                obj.options.columns[x]);
+        }
+        else if (obj.options.columns && obj.options.columns[x] && typeof obj.options.columns[x].render === 'function') {
             obj.options.columns[x].render(
                 obj.records[y] && obj.records[y][x] ? obj.records[y][x].element : null,
                 value,
@@ -675,15 +684,15 @@ export const updateCell = function(x, y, value, force) {
 /**
  * The value is a formula
  */
-export const isFormula = function(value) {
-    const v = (''+value)[0];
+export const isFormula = function (value) {
+    const v = ('' + value)[0];
     return v == '=' || v == '#' ? true : false;
 }
 
 /**
  * Get the mask in the jSuites.mask format
  */
-export const getMask = function(o) {
+export const getMask = function (o) {
     if (o.format || o.mask || o.locale) {
         const opt = {};
         if (o.mask) {
@@ -696,7 +705,7 @@ export const getMask = function(o) {
         }
 
         if (o.decimal) {
-            if (! opt.options) {
+            if (!opt.options) {
                 opt.options = {};
             }
             opt.options = { decimal: o.decimal };
@@ -710,7 +719,7 @@ export const getMask = function(o) {
 /**
  * Secure formula
  */
-const secureFormula = function(oldValue) {
+const secureFormula = function (oldValue) {
     let newValue = '';
     let inside = 0;
 
@@ -738,7 +747,7 @@ const secureFormula = function(oldValue) {
  */
 let chainLoopProtection = [];
 
-export const updateFormulaChain = function(x, y, records) {
+export const updateFormulaChain = function (x, y, records) {
     const obj = this;
 
     const cellId = getColumnNameFromId([x, y]);
@@ -753,8 +762,8 @@ export const updateFormulaChain = function(x, y, records) {
             for (let i = 0; i < obj.formula[cellId].length; i++) {
                 const cell = getIdFromColumnName(obj.formula[cellId][i], true);
                 // Update cell
-                const value = ''+obj.options.data[cell[1]][cell[0]];
-                if (value.substr(0,1) == '=') {
+                const value = '' + obj.options.data[cell[1]][cell[0]];
+                if (value.substr(0, 1) == '=') {
                     records.push(updateCell.call(obj, cell[0], cell[1], value, true));
                 } else {
                     // No longer a formula, remove from the chain
@@ -771,7 +780,7 @@ export const updateFormulaChain = function(x, y, records) {
 /**
  * Update formula
  */
-export const updateFormula = function(formula, referencesToUpdate) {
+export const updateFormula = function (formula, referencesToUpdate) {
     const testLetter = /[A-Z]/;
     const testNumber = /[0-9]/;
 
@@ -813,7 +822,7 @@ export const updateFormula = function(formula, referencesToUpdate) {
 /**
  * Update formulas
  */
-const updateFormulas = function(referencesToUpdate) {
+const updateFormulas = function (referencesToUpdate) {
     const obj = this;
 
     // Update formulas
@@ -821,7 +830,7 @@ const updateFormulas = function(referencesToUpdate) {
         for (let i = 0; i < obj.options.data[0].length; i++) {
             const value = '' + obj.options.data[j][i];
             // Is formula
-            if (value.substr(0,1) == '=') {
+            if (value.substr(0, 1) == '=') {
                 // Replace tokens
                 const newFormula = updateFormula(value, referencesToUpdate);
                 if (newFormula != value) {
@@ -860,9 +869,9 @@ const updateFormulas = function(referencesToUpdate) {
  *
  * @return void
  */
-export const updateTableReferences = function() {
+export const updateTableReferences = function () {
     const obj = this;
-    if( obj.skipUpdateTableReferences ){
+    if (obj.skipUpdateTableReferences) {
         return;
     }
 
@@ -875,7 +884,7 @@ export const updateTableReferences = function() {
             // Update coords
             obj.headers[i].setAttribute('data-x', i);
             // Title
-            if (! obj.headers[i].getAttribute('title')) {
+            if (!obj.headers[i].getAttribute('title')) {
                 obj.headers[i].innerHTML = getColumnName(i);
             }
         }
@@ -901,7 +910,7 @@ export const updateTableReferences = function() {
     const mergeCellUpdates = [];
 
     // Update cell
-    const updatePosition = function(x,y,i,j) {
+    const updatePosition = function (x, y, i, j) {
         if (x != i) {
             obj.records[j][i].element.setAttribute('data-x', i);
         }
@@ -934,11 +943,11 @@ export const updateTableReferences = function() {
                         } else {
                             const totalX = parseInt(i - x);
                             const totalY = parseInt(j - y);
-                            mergeCellUpdates[columnIdFrom] = [ columnIdTo, totalX, totalY ];
+                            mergeCellUpdates[columnIdFrom] = [columnIdTo, totalX, totalY];
                         }
                     }
                 } else {
-                    updatePosition(x,y,i,j);
+                    updatePosition(x, y, i, j);
                 }
             }
         }
@@ -952,7 +961,7 @@ export const updateTableReferences = function() {
                 const info = getIdFromColumnName(keys[i], true)
                 let x = info[0];
                 let y = info[1];
-                updatePosition(x,y,x + mergeCellUpdates[keys[i]][1],y + mergeCellUpdates[keys[i]][2]);
+                updatePosition(x, y, x + mergeCellUpdates[keys[i]][1], y + mergeCellUpdates[keys[i]][2]);
 
                 const columnIdFrom = keys[i];
                 const columnIdTo = mergeCellUpdates[keys[i]][0];
@@ -964,7 +973,7 @@ export const updateTableReferences = function() {
                 }
 
                 obj.options.mergeCells[columnIdTo] = obj.options.mergeCells[columnIdFrom];
-                delete(obj.options.mergeCells[columnIdFrom]);
+                delete (obj.options.mergeCells[columnIdFrom]);
             }
         }
     }
@@ -985,7 +994,7 @@ export const updateTableReferences = function() {
 /**
  * Update scroll position based on the selection
  */
-export const updateScroll = function(direction) {
+export const updateScroll = function (direction) {
     const obj = this;
 
     // Jspreadsheet Container information
@@ -1049,7 +1058,7 @@ export const updateScroll = function(direction) {
     }
 }
 
-export const updateResult = function() {
+export const updateResult = function () {
     const obj = this;
 
     let total = 0;
@@ -1075,7 +1084,7 @@ export const updateResult = function() {
 
     // Hide all records from the table
     for (let j = 0; j < obj.rows.length; j++) {
-        if (! obj.results || obj.results.indexOf(j) > -1) {
+        if (!obj.results || obj.results.indexOf(j) > -1) {
             if (index < total) {
                 obj.tbody.appendChild(obj.rows[j].element);
                 index++;
@@ -1102,7 +1111,7 @@ export const updateResult = function() {
  * @param object cell
  * @return string value
  */
-export const getCell = function(x, y) {
+export const getCell = function (x, y) {
     const obj = this;
 
     if (typeof x === 'string') {
@@ -1122,7 +1131,7 @@ export const getCell = function(x, y) {
  * @param object cell
  * @return string value
  */
-export const getCellFromCoords = function(x, y) {
+export const getCellFromCoords = function (x, y) {
     const obj = this;
 
     return obj.records[y][x].element;
@@ -1134,7 +1143,7 @@ export const getCellFromCoords = function(x, y) {
  * @param object cell
  * @return string value
  */
-export const getLabel = function(x, y) {
+export const getLabel = function (x, y) {
     const obj = this;
 
     if (typeof x === 'string') {
@@ -1153,12 +1162,12 @@ export const getLabel = function(x, y) {
  * use programmatically : table.fullscreen(); or table.fullscreen(true); or table.fullscreen(false);
  * @Param {boolean} activate
  */
-export const fullscreen = function(activate) {
+export const fullscreen = function (activate) {
     const spreadsheet = this;
 
     // If activate not defined, get reverse options.fullscreen
     if (activate == null) {
-        activate = ! spreadsheet.config.fullscreen;
+        activate = !spreadsheet.config.fullscreen;
     }
 
     // If change
@@ -1177,7 +1186,7 @@ export const fullscreen = function(activate) {
 /**
  * Show index column
  */
-export const showIndex = function() {
+export const showIndex = function () {
     const obj = this;
 
     obj.table.classList.remove('jss_hidden_index');
@@ -1186,7 +1195,7 @@ export const showIndex = function() {
 /**
  * Hide index column
  */
-export const hideIndex = function() {
+export const hideIndex = function () {
     const obj = this;
 
     obj.table.classList.add('jss_hidden_index');
@@ -1195,7 +1204,7 @@ export const hideIndex = function() {
 /**
  * Create a nested header object
  */
-export const createNestedHeader = function(nestedInformation) {
+export const createNestedHeader = function (nestedInformation) {
     const obj = this;
 
     const tr = document.createElement('tr');
@@ -1210,13 +1219,13 @@ export const createNestedHeader = function(nestedInformation) {
     let headerIndex = 0;
     for (let i = 0; i < nestedInformation.length; i++) {
         // Default values
-        if (! nestedInformation[i].colspan) {
+        if (!nestedInformation[i].colspan) {
             nestedInformation[i].colspan = 1;
         }
-        if (! nestedInformation[i].title) {
+        if (!nestedInformation[i].title) {
             nestedInformation[i].title = '';
         }
-        if (! nestedInformation[i].id) {
+        if (!nestedInformation[i].id) {
             nestedInformation[i].id = '';
         }
 
@@ -1247,13 +1256,13 @@ export const createNestedHeader = function(nestedInformation) {
     return tr;
 }
 
-export const getWorksheetActive = function() {
+export const getWorksheetActive = function () {
     const spreadsheet = this.parent ? this.parent : this;
 
     return spreadsheet.element.tabs ? spreadsheet.element.tabs.getActive() : 0;
 }
 
-export const getWorksheetInstance = function(index) {
+export const getWorksheetInstance = function (index) {
     const spreadsheet = this;
 
     const worksheetIndex = typeof index !== 'undefined' ? index : getWorksheetActive.call(spreadsheet);

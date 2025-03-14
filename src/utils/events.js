@@ -186,7 +186,6 @@ const mouseDownControls = function(e) {
 
             if (!e.target.classList.contains('jss_object')) {
                 const spreadsheet = libraryBase.jspreadsheet.current.parent;
-                console.log('keepSelectionOnBlur',spreadsheet.config.keepSelectionOnBlur)
                 if (spreadsheet.config.keepSelectionOnBlur){
                     //保持选择状态
                 }

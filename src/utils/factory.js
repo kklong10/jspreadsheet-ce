@@ -13,8 +13,8 @@ const factory = function() {};
 
 const createWorksheets = async function(spreadsheet, options, el) {
     // Create worksheets
-    let o = options.worksheets;
-    if (o) {
+    let worksheets = options.worksheets;
+    if (worksheets) {
         let tabsOptions = {
             animation: true,
             onbeforecreate: function(element, title) {
@@ -67,13 +67,13 @@ const createWorksheets = async function(spreadsheet, options, el) {
 
         let sheetNumber = 1;
 
-        for (let i = 0; i < o.length; i++) {
-            if (!o[i].worksheetName) {
-                o[i].worksheetName = 'Sheet' + sheetNumber++;
+        for (let i = 0; i < worksheets.length; i++) {
+            if (!worksheets[i].worksheetName) {
+                worksheets[i].worksheetName = 'Sheet' + sheetNumber++;
             }
 
             tabsOptions.data.push({
-                title: o[i].worksheetName,
+                title: worksheets[i].worksheetName,
                 content: ''
             });
         }
@@ -85,11 +85,11 @@ const createWorksheets = async function(spreadsheet, options, el) {
         const spreadsheetStyles = options.style;
         delete options.style;
 
-        for (let i = 0; i < o.length; i++) {
-            if (o[i].style) {
-                Object.entries(o[i].style).forEach(function([cellName, value]) {
+        for (let i = 0; i < worksheets.length; i++) {
+            if (worksheets[i].style) {
+                Object.entries(worksheets[i].style).forEach(function([cellName, value]) {
                     if (typeof value === 'number') {
-                        o[i].style[cellName] = spreadsheetStyles[value];
+                        worksheets[i].style[cellName] = spreadsheetStyles[value];
                     }
                 })
             }
@@ -97,7 +97,7 @@ const createWorksheets = async function(spreadsheet, options, el) {
             spreadsheet.worksheets.push({
                 parent: spreadsheet,
                 element: tabs.content.children[i],
-                options: o[i],
+                options: worksheets[i],
                 filters: [],
                 formula: [],
                 history: [],
